@@ -1,4 +1,3 @@
-import { Sequelize } from 'sequelize';
 import DatabaseConfig from '../interfaces/DatabaseConfig';
 
 const databaseConfig: DatabaseConfig = {
@@ -8,6 +7,10 @@ const databaseConfig: DatabaseConfig = {
     database: 'dev_database',
     host: 'localhost',
     dialect: 'mysql',
+    dialectOptions: {
+      timezone: 'Z',
+    },
+    logging: false,
   },
   test: {
     username: 'test_user',
@@ -15,6 +18,10 @@ const databaseConfig: DatabaseConfig = {
     database: 'test_database',
     host: 'localhost',
     dialect: 'mysql',
+    dialectOptions: {
+      timezone: 'Z',
+    },
+    logging: false,
   },
   production: {
     username: 'root',
@@ -22,6 +29,10 @@ const databaseConfig: DatabaseConfig = {
     database: 'meu-treino-database',
     host: 'localhost',
     dialect: 'mysql',
+    dialectOptions: {
+      timezone: 'Z',
+    },
+    logging: false,
   },
 };
 

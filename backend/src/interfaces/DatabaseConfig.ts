@@ -5,6 +5,10 @@ interface DatabaseConfig {
     database: string;
     host: string;
     dialect: string;
+    dialectOptions: {
+      timezone: string;
+    };
+    logging: boolean;
   };
 }
 
