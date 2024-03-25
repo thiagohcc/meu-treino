@@ -1,13 +1,15 @@
 import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequelize';
 import db from '.';
 
+import Workoutsheet from './Workoutsheet';
+
 export default class Costumer extends Model<InferAttributes<Costumer>, InferCreationAttributes<Costumer>> {
   declare id: number;
   declare firstName: string;
   declare lastName: string;
   declare email: string;
   declare gender: string;
-  declare phone: number;
+  declare phone: string;
   declare cpf: number;
   declare isActive: boolean;
 }
@@ -37,7 +39,7 @@ Costumer.init({
     allowNull: false,
   },
   phone: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
@@ -53,6 +55,11 @@ Costumer.init({
   },
 }, {
   sequelize: db,
-  modelName: 'costumers',
+  modelName: 'costumer',
   underscored: true,
 });
+
+Costumer.hasMany(Workoutsheet, {
+  foreignKey: 'idCostumer',
+  as: 'workoutsheets'
+})
