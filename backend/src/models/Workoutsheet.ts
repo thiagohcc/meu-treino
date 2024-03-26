@@ -1,14 +1,14 @@
 import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequelize';
 import db from '.';
 
-import Costomer from './Costumer';
+import Customer from './Customer';
 
 export default class Workoutsheet extends Model<InferAttributes<Workoutsheet>, InferCreationAttributes<Workoutsheet>> {
   declare id: number;
-  declare idCostumer: number;
+  declare costumer_id: number;
   declare title: string;
   declare description: string;
-  declare isActive: boolean;
+  declare is_active: boolean;
 }
 
 Workoutsheet.init({
@@ -18,10 +18,10 @@ Workoutsheet.init({
     autoIncrement: true,
     allowNull: false,
   },
-  idCostumer: {
+  costumer_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Customer',
+      model: 'Costumer',
       key: 'id'
     }
   },
@@ -33,7 +33,7 @@ Workoutsheet.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  isActive: {
+  is_active: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: true,
@@ -44,7 +44,7 @@ Workoutsheet.init({
   underscored: true,
 });
 
-Workoutsheet.belongsTo(Costomer, {
-  foreignKey: 'costumer',
-  as: 'costumer'
+Workoutsheet.belongsTo(Customer, {
+  foreignKey: 'customerId',
+  as: 'customer'
 })

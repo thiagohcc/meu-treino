@@ -2,30 +2,31 @@ import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequel
 import db from '.';
 
 import Workoutsheet from './Workoutsheet';
+import Address from './Address';
 
-export default class Costumer extends Model<InferAttributes<Costumer>, InferCreationAttributes<Costumer>> {
+export default class Customer extends Model<InferAttributes<Customer>, InferCreationAttributes<Customer>> {
   declare id: number;
-  declare firstName: string;
-  declare lastName: string;
+  declare first_name: string;
+  declare last_name: string;
   declare email: string;
   declare gender: string;
   declare phone: string;
   declare cpf: number;
-  declare isActive: boolean;
+  declare is_active: boolean;
 }
 
-Costumer.init({
+Customer.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
   },
-  firstName: {
+  first_name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  lastName: {
+  last_name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -48,18 +49,26 @@ Costumer.init({
     allowNull: false,
     unique: true,
   },
-  isActive: {
+  is_active: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: true,
   },
 }, {
   sequelize: db,
-  modelName: 'costumer',
+  modelName: 'customer',
   underscored: true,
 });
 
-Costumer.hasMany(Workoutsheet, {
-  foreignKey: 'idCostumer',
+Customer.hasMany(Workoutsheet, {
+  foreignKey: 'customerId',
   as: 'workoutsheets'
-})
+});
+
+Customer.hasOne(Address, {
+  foreignKey: 'addressableId',
+  constraints: false,
+  scope: {
+    addressableType: 'customer',
+  },
+});
