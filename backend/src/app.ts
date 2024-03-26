@@ -8,6 +8,7 @@ class App {
     this.config();
 
     this.app.get('/', (req, res) => res.json({ ok: 'backend API is running'}));
+    this.app.get('/api', (req, res) => res.json({ ok: 'API is running'}));
   }
 
   private config(): void {

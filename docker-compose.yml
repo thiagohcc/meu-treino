@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  db:
+    container_name: database-meu-treino
+    image: mysql:8.0.32
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+  backend:
+    image: backend-meu-treino
+    build: ./backend
+    container_name: backend-meu-treino
+    working_dir: /app
+    stdin_open: true
+    command: dev
+    restart: always
+    ports:
+      - 3001:3001
+    volumes:
+      - ./backend/src:/app/src
+    tty: true
+    
+    depends_on:
+      - db
+    environment:
+      DB_USER: 'root'
+      DB_PASSWORD: password
+      DB_HOST: db
+      DB_NAME: backend
+      DB_PORT: 3306
+      JWT_SECRET: secret
+
+  # frontend:
+  #   build: ./frontend
+  #   container_name: frontend-meu-treino
+  #   tty: true
+  #   stdin_open: true
+  #   command: dev
+  #   image: frontend-meu-treino
+  #   restart: always
+  #   workdir: /app
+  #   volumes:
+  #     - ./frontend/src:/app/src
+  #   ports:
+  #     - 3000:3000
+
