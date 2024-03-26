@@ -5,7 +5,7 @@ import Customer from './Customer';
 
 export default class Workoutsheet extends Model<InferAttributes<Workoutsheet>, InferCreationAttributes<Workoutsheet>> {
   declare id: number;
-  declare costumer_id: number;
+  declare customer_id: number;
   declare title: string;
   declare description: string;
   declare is_active: boolean;
@@ -18,10 +18,10 @@ Workoutsheet.init({
     autoIncrement: true,
     allowNull: false,
   },
-  costumer_id: {
+  customer_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Costumer',
+      model: 'customer',
       key: 'id'
     }
   },
@@ -45,6 +45,6 @@ Workoutsheet.init({
 });
 
 Workoutsheet.belongsTo(Customer, {
-  foreignKey: 'customerId',
+  foreignKey: 'customer_id',
   as: 'customer'
 })

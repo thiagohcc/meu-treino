@@ -6,7 +6,6 @@ import Address from './Address';
 export default class GymUnit extends Model<InferAttributes<GymUnit>, InferCreationAttributes<GymUnit>> {
   declare id: number;
   declare name: string;
-  declare address: string;
   declare phone: string;
   declare email: string;
   declare open_hour: Date;
@@ -21,10 +20,6 @@ GymUnit.init({
     allowNull: false,
   },
   name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  address: {
     type: DataTypes.STRING,
     allowNull: false,
   },
