@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./build/server.js",
+    "dev": "tsnd --watch \"./src/**\" --transpile-only ./src/server.ts",
+    "test": "mocha --require ts-node/register ./src/test/**/**/*.test.ts --exit -t 60000 --exit",
+    "test:coverage": "nyc mocha --require ts-node/register ./src/test/**/**/*.test.ts --exit -t 60000 --exit",
+    "test:percent": "nyc report --reporter=lcov --reporter=text-summary",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "build": "tsc --project tsconfig.json",
+    "prestart": "npm run build && npm run db:reset"
   },
   "keywords": [],
   "author": "",
