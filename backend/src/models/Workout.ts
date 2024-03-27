@@ -23,11 +23,11 @@ Workout.init({
     allowNull: false,
   },
   repetitions: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   sets: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 }, {
@@ -37,10 +37,10 @@ Workout.init({
 });
 
 Workout.belongsTo(Workoutsheet, {
-    foreignKey: 'workoutsheetId',
-    as: 'workoutsheet'
+    foreignKey: 'workoutsheet_id',
+    as: 'workout_sheet'
   });
-  Workout.belongsTo(Exercise, {
-    foreignKey: 'exerciseId',
-    as: 'exercise'
-  })
+Workout.belongsTo(Exercise, {
+  foreignKey: 'exerciseId',
+  as: 'exercise'
+});

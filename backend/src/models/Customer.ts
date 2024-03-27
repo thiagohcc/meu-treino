@@ -11,7 +11,7 @@ export default class Customer extends Model<InferAttributes<Customer>, InferCrea
   declare email: string;
   declare gender: string;
   declare phone: string;
-  declare cpf: number;
+  declare cpf: string;
   declare is_active: boolean;
 }
 
@@ -45,7 +45,7 @@ Customer.init({
     unique: true,
   },
   cpf: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },

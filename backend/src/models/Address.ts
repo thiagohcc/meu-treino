@@ -8,6 +8,7 @@ export default class Address extends Model<InferAttributes<Address>, InferCreati
   declare id: number;
   declare street: string;
   declare number: number;
+  declare complement: string;
   declare neighborhood: string;
   declare city: string;
   declare state: string;
@@ -28,6 +29,10 @@ Address.init({
   number: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+  complement: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   neighborhood: {
     type: DataTypes.STRING,

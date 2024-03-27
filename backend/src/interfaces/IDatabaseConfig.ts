@@ -1,4 +1,4 @@
-interface DatabaseConfig {
+interface IDatabaseConfig {
   [key: string]: {
     username: string;
     password: string;
@@ -12,4 +12,4 @@ interface DatabaseConfig {
   };
 }
 
-export default DatabaseConfig;
+export default IDatabaseConfig;
