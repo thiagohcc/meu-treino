@@ -38,9 +38,9 @@ Workout.init({
 
 Workout.belongsTo(Workoutsheet, {
     foreignKey: 'workoutsheet_id',
-    as: 'workoutsheet'
+    as: 'workout_sheet'
   });
-  Workout.belongsTo(Exercise, {
-    foreignKey: 'exerciseId',
-    as: 'exercise'
-  })
+Workout.belongsTo(Exercise, {
+  foreignKey: 'exerciseId',
+  as: 'exercise'
+});
