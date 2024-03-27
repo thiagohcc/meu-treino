@@ -1,15 +1,19 @@
-import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequelize';
+import {Model, DataTypes, InferAttributes, InferCreationAttributes, HasOne, HasOneGetAssociationMixin} from 'sequelize';
 import db from '.';
 
 import Address from './Address';
 
 export default class GymUnit extends Model<InferAttributes<GymUnit>, InferCreationAttributes<GymUnit>> {
-  declare id: number;
+  declare id?: number;
   declare name: string;
   declare phone: string;
   declare email: string;
   declare open_hour: Date;
   declare close_hour: Date;
+
+  public readonly address_id?: Address;
+
+  // public getAddress!: HasOneGetAssociationMixin<Address>;
 }
 
 GymUnit.init({
@@ -39,6 +43,10 @@ GymUnit.init({
     type: DataTypes.TIME,
     allowNull: false,
   },
+  address_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 }, {
   sequelize: db,
   modelName: 'gym_unit',
@@ -46,7 +54,10 @@ GymUnit.init({
 });
 
 GymUnit.hasOne(Address, {
-  foreignKey: 'addressableId',
+  foreignKey: {
+    name: 'addressableId',
+    allowNull: false,
+  },
   constraints: false,
   scope: {
     addressableType: 'gymUnit',

@@ -4,7 +4,7 @@ import db from '.';
 import Customer from './Customer';
 
 export default class Workoutsheet extends Model<InferAttributes<Workoutsheet>, InferCreationAttributes<Workoutsheet>> {
-  declare id: number;
+  declare id?: number;
   declare customer_id: number;
   declare title: string;
   declare description: string;

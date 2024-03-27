@@ -28,19 +28,30 @@ module.exports = {
       close_hour: {
         type: Sequelize.TIME,
         allowNull: false
+      },
+      address_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'address',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       }
     });
 
-    await queryInterface.addColumn('gym_unit', 'address_id', {
-      type: Sequelize.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'address',
-        key: 'id'
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
-    });
+    // await queryInterface.addColumn('gym_unit', 'address_id', {
+    //   type: Sequelize.INTEGER,
+    //   allowNull: true,
+    //   references: {
+    //     model: 'address',
+    //     key: 'id'
+    //   },
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE'
+    // });
+
   },
 
   down: async (queryInterface, Sequelize) => {

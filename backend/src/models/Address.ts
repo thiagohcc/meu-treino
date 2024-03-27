@@ -5,7 +5,7 @@ import Customer from './Customer';
 import GymUnit from './GymUnit';
 
 export default class Address extends Model<InferAttributes<Address>, InferCreationAttributes<Address>> {
-  declare id: number;
+  declare id?: number;
   declare street: string;
   declare number: number;
   declare complement: string;

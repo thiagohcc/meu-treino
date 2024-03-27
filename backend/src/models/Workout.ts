@@ -5,7 +5,7 @@ import Workoutsheet from './Workoutsheet';
 import Exercise from './Exercise';
 
 export default class Workout extends Model<InferAttributes<Workout>, InferCreationAttributes<Workout>> {
-  declare id: number;
+  declare id?: number;
   declare weight: number;
   declare repetitions: number;
   declare sets: number;
