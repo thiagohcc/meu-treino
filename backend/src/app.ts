@@ -7,7 +7,7 @@ class App {
     this.app = express();
     this.config();
 
-    this.app.get('/', (req, res) => res.json({ ok: 'backend API is running'}));
+    this.app.get('/', (req, res) => res.json({ ok: 'backend API is running!'}));
   }
 
   private config(): void {
