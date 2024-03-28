@@ -1,5 +1,7 @@
 import * as express from 'express';
+
 import exerciseRouter from './router/exercise.route';
+import customerRouter from './router/customer.route';
 
 class App {
   public app: express.Express;
@@ -23,6 +25,7 @@ class App {
     this.app.use(accessControl);
 
     this.app.use('/exercise', exerciseRouter);
+    this.app.use('/customer', customerRouter);
 
   }
 

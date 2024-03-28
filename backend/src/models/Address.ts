@@ -1,4 +1,4 @@
-import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import db from '.';
 
 import Customer from './Customer';
@@ -56,20 +56,14 @@ Address.init({
   underscored: true,
 });
 
-Address.belongsTo(Customer, {
-  foreignKey: 'customerId',
-  as: 'customer',
-  constraints: false,
-  scope: {
-    addressableType: 'customer',
-  }
-});
+// Address.hasMany(Customer, {
+//   foreignKey: 'customerId',
+//   as: 'customer',
+//   constraints: false,
+// });
 
-Address.belongsTo(GymUnit, {
-  foreignKey: 'gymUnitId',
-  as: 'gymUnit',
-  constraints: false,
-  scope: {
-    addressableType: 'gymUnit',
-  }
-});
+// Address.hasOne(GymUnit, {
+//   foreignKey: 'gymUnitId',
+//   as: 'gymUnit',
+//   constraints: false,
+// });

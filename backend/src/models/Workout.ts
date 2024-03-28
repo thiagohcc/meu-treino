@@ -1,4 +1,4 @@
-import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequelize';
+import {Model, DataTypes, InferAttributes, InferCreationAttributes, Association} from 'sequelize';
 import db from '.';
 
 import Workoutsheet from './Workoutsheet';
@@ -9,6 +9,12 @@ export default class Workout extends Model<InferAttributes<Workout>, InferCreati
   declare weight: number;
   declare repetitions: number;
   declare sets: number;
+
+  public readonly workoutsheet_id?: Workoutsheet;
+
+  public static associations: {
+    workoutsheet: Association<Workout, Workoutsheet>;
+  };
 } 
 
 Workout.init({
@@ -36,11 +42,14 @@ Workout.init({
   underscored: true,
 });
 
-Workout.belongsTo(Workoutsheet, {
-    foreignKey: 'workoutsheet_id',
-    as: 'workout_sheet'
-  });
-Workout.belongsTo(Exercise, {
-  foreignKey: 'exerciseId',
-  as: 'exercise'
-});
+Workout
+
+// Workout.belongsTo(Workoutsheet, {
+//     foreignKey: 'workoutsheet_id',
+//     as: 'workout_sheet'
+//   });
+
+// Workout.belongsTo(Exercise, {
+//   foreignKey: 'exerciseId',
+//   as: 'exercise'
+// });
