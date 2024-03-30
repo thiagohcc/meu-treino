@@ -43,8 +43,3 @@ Exercise.init({
   underscored: true,
   timestamps: false,
 });
-
-Exercise.hasMany(Workout, {
-  foreignKey: 'exerciseId',
-  as: 'workouts'
-});

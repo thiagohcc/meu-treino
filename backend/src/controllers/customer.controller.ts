@@ -29,7 +29,7 @@ export default class CustomerController {
 
   async getByCpf(req: Request, res: Response): Promise<Response> {
     try {
-      const { type, message } = await this.customerService.getByCpf(req.params.cpf);
+      const { type, message } = await this.customerService.getByCpf(req.body.cpf);
       return res.status(type).json(message);
     } catch (err) {
       return res.status(500).json((err as Error).message);
@@ -38,7 +38,43 @@ export default class CustomerController {
 
   async getByEmail(req: Request, res: Response): Promise<Response> {
     try {
-      const { type, message } = await this.customerService.getByEmail(req.params.email);
+      const { type, message } = await this.customerService.getByEmail(req.body.email);
+      return res.status(type).json(message);
+    } catch (err) {
+      return res.status(500).json((err as Error).message);
+    }
+  };
+
+  public post = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { type, message } = await this.customerService.post(req.body);
+      return res.status(type).json(message);
+    } catch (err) {
+      return res.status(500).json((err as Error).message);
+    }
+  };
+
+  public put = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { type, message } = await this.customerService.put(Number(req.params.id), req.body);
+      return res.status(type).json(message);
+    } catch (err) {
+      return res.status(500).json((err as Error).message);
+    }
+  };
+
+  public delete = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { type, message } = await this.customerService.delete(Number(req.params.id));
+      return res.status(type).json(message);
+    } catch (err) {
+      return res.status(500).json((err as Error).message);
+    }
+  };
+
+  public patch = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { type, message } = await this.customerService.patch(Number(req.params.id), req.body.updates);
       return res.status(type).json(message);
     } catch (err) {
       return res.status(500).json((err as Error).message);

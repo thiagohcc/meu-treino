@@ -2,6 +2,8 @@ import * as express from 'express';
 
 import exerciseRouter from './routes/exercise.routes';
 import customerRouter from './routes/customer.routes';
+import workoutRouter from './routes/workout.routes';
+import addressRouter from './routes/address.routes';
 
 class App {
   public app: express.Express;
@@ -26,6 +28,8 @@ class App {
 
     this.app.use('/exercise', exerciseRouter);
     this.app.use('/customer', customerRouter);
+    this.app.use('/workout', workoutRouter);
+    this.app.use('/address', addressRouter);
 
   }
 

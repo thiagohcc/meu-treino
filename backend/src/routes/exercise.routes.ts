@@ -4,8 +4,8 @@ import ExerciseController from '../controllers/exercise.controller';
 const exerciseRouter: Router = Router();
 const exerciseController: ExerciseController = new ExerciseController();
 
-exerciseRouter.get('/name', (req, res) => exerciseController.getByName(req, res));
 exerciseRouter.get('/', (req, res) => exerciseController.getAll(req, res));
+exerciseRouter.get('/name', (req, res) => exerciseController.getByName(req, res));
 exerciseRouter.get('/:id', (req, res) => exerciseController.getById(req, res));
 exerciseRouter.post('/', (req, res) => exerciseController.post(req, res));
 exerciseRouter.put('/:id', (req, res) => exerciseController.put(req, res));

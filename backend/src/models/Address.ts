@@ -58,17 +58,9 @@ Address.init({
 }, {
   sequelize: db,
   modelName: 'address',
+  tableName: 'address',
   underscored: true,
+  timestamps: false,
 });
 
-Address.belongsTo(Customer, {
-  foreignKey: 'customerId',
-  as: 'customer',
-  constraints: false,
-});
 
-Address.belongsTo(GymUnit, {
-  foreignKey: 'gymUnitId',
-  as: 'gymUnit',
-  constraints: false,
-});

@@ -71,3 +71,8 @@ Customer.init({
   timestamps: false,
 });
 
+Customer.belongsTo(Address, {
+  foreignKey: 'address_id',
+  as: 'address',
+});
+

@@ -54,4 +54,8 @@ GymUnit.init({
   underscored: true,
 });
 
+GymUnit.belongsTo(Address, {
+  foreignKey: 'address_id',
+  as: 'address',
+});
 
