@@ -1,4 +1,4 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, Association } from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import db from '.';
 
 import Address from './Address';
@@ -12,10 +12,6 @@ export default class GymUnit extends Model<InferAttributes<GymUnit>, InferCreati
   declare close_hour: Date;
 
   public readonly address_id?: Address;
-
-  public static associations: {
-    address: Association<GymUnit, Address>;
-  };
 }
 
 GymUnit.init({
@@ -45,21 +41,17 @@ GymUnit.init({
     type: DataTypes.TIME,
     allowNull: false,
   },
-  // address_id: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  // },
+  address_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'address',
+      key: 'id'
+    }
+  }
 }, {
   sequelize: db,
   modelName: 'gym_unit',
   underscored: true,
-});
-
-GymUnit.hasOne(Address, {
-  sourceKey: 'id',
-  foreignKey: 'gymUnitId',
-  as: 'address',
-  // constraints: false,
 });
 
 

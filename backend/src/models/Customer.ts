@@ -1,4 +1,4 @@
-import {Model, DataTypes, InferAttributes, InferCreationAttributes, Association} from 'sequelize';
+import {Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import db from '.';
 
 import Workoutsheet from './Workoutsheet';
@@ -12,14 +12,9 @@ export default class Customer extends Model<InferAttributes<Customer>, InferCrea
   declare gender: string;
   declare phone: string;
   declare cpf: string;
-  declare is_active: boolean;
+  declare isActive: boolean;
 
   public readonly address_id?: Address;
-
-  public static associations: {
-    address: Association<Customer, Address>;
-    workoutsheets: Association<Customer, Workoutsheet>;
-  };
 }
 
 Customer.init({
@@ -56,30 +51,23 @@ Customer.init({
     allowNull: false,
     unique: true,
   },
-  is_active: {
+  isActive: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: true,
   },
-  // address_id: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  // },
+  address_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'address',
+      key: 'id'
+    }
+  },
 }, {
   sequelize: db,
   modelName: 'customer',
+  tableName: 'customer',
   underscored: true,
-});
-
-Customer.hasMany(Workoutsheet, {
-  foreignKey: 'customerId',
-  as: 'workoutsheets',
-  constraints: false,
-});
-
-Customer.belongsTo(Address, {
-  foreignKey: 'address_id',
-  as: 'address',
-  constraints: false,
+  timestamps: false,
 });
 

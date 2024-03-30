@@ -37,28 +37,17 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
-      // address_id: {
-      //   type: Sequelize.INTEGER,
-      //   allowNull: true,
-      //   references: {
-      //     model: 'address',
-      //     key: 'id'
-      //   },
-      //   onUpdate: 'CASCADE',
-      //   onDelete: 'CASCADE'
-      // },
+      address_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'address',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      } 
     });
-
-    // await queryInterface.addColumn('customer', 'address_id', {
-    //   type: Sequelize.INTEGER,
-    //   allowNull: true,
-    //   references: {
-    //     model: 'address',
-    //     key: 'id'
-    //   },
-    //   onUpdate: 'CASCADE',
-    //   onDelete: 'CASCADE'
-    // });
   },
 
   down: async (queryInterface, Sequelize) => {

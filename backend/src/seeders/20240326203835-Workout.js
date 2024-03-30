@@ -6,12 +6,14 @@ const workout = [
     weight: 50,
     repetitions: 10,
     sets: 3,
+    workoutsheet_id: 1,
   },
   {
     workoutsheet_id: 2,
     weight: 70,
     repetitions: 8,
     sets: 4,
+    workoutsheet_id: 2,
   }
 ];
 

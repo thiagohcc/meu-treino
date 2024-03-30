@@ -9,7 +9,7 @@ const customer = [
     phone: '123456789',
     cpf: '12345678901',
     is_active: true,
-    // address_id: 1
+    address_id: 1
   },
   {
     first_name: 'Jane',
@@ -19,7 +19,7 @@ const customer = [
     phone: '987654321',
     cpf: '98765432101',
     is_active: true,
-    // address_id: 1
+    address_id: 1
   }
 ];
 

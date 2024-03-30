@@ -6,7 +6,7 @@ export default class ExerciseService {
       const allExercises = await Exercise.findAll();
 
       return { type: 200, message: allExercises };
-    } catch (err) {
+    } catch (err) {     
       return { type: 500, message: (err as Error).message };
     }
   }

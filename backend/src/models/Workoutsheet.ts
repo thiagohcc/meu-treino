@@ -2,6 +2,7 @@ import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequel
 import db from '.';
 
 import Customer from './Customer';
+import Workout from './Workout';
 
 export default class Workoutsheet extends Model<InferAttributes<Workoutsheet>, InferCreationAttributes<Workoutsheet>> {
   declare id?: number;
@@ -45,6 +46,13 @@ Workoutsheet.init({
 });
 
 Workoutsheet.belongsTo(Customer, {
-  foreignKey: 'customer_id',
-  as: 'customer'
-})
+  foreignKey: 'customerId',
+  as: 'customer',
+  constraints: false,
+});
+
+Workoutsheet.hasMany(Workout, {
+  foreignKey: 'workoutsheetId',
+  as: 'workouts',
+  constraints: false,
+});

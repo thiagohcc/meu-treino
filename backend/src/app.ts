@@ -1,7 +1,7 @@
 import * as express from 'express';
 
-import exerciseRouter from './router/exercise.route';
-import customerRouter from './router/customer.route';
+import exerciseRouter from './routes/exercise.routes';
+import customerRouter from './routes/customer.routes';
 
 class App {
   public app: express.Express;

@@ -4,14 +4,14 @@ const exercise = [
   {
     name: 'Push-up',
     number: 1,
-    photoUrl: 'pushup.jpg',
-    videoUrl: 'pushup.mp4',
+    photo_url: 'pushup.jpg',
+    video_url: 'pushup.mp4',
   },
   {
     name: 'Squats',
     number: 2,
-    photoUrl: 'squats.jpg',
-    videoUrl: 'squats.mp4',
+    photo_url: 'squats.jpg',
+    video_url: 'squats.mp4',
   }
 ];
 

@@ -17,10 +17,10 @@ const workoutsheet = [
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('workout_sheet', workoutsheet);
+    await queryInterface.bulkInsert('workoutsheet', workoutsheet);
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('workout_sheet', null, {});
+    await queryInterface.bulkDelete('workoutsheet', null, {});
   }
 };

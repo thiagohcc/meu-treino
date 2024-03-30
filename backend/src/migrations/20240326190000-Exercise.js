@@ -17,11 +17,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      photoUrl: {
+      photo_url: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      videoUrl: {
+      video_url: {
         type: Sequelize.STRING,
         allowNull: false
       },

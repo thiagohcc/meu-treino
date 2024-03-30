@@ -7,7 +7,7 @@ const gymUnit = [
     email: 'info@fitnesscenter.com',
     open_hour: '08:00:00',
     close_hour: '20:00:00',
-    // address_id: 1
+    address_id: 2
   },
   {
     name: 'Gym & Spa',
@@ -15,7 +15,7 @@ const gymUnit = [
     email: 'info@gymspa.com',
     open_hour: '07:00:00',
     close_hour: '22:00:00',
-    // address_id: 2
+    address_id: 2
   }
 ];
 

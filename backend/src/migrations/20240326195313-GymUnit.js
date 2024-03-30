@@ -29,16 +29,16 @@ module.exports = {
         type: Sequelize.TIME,
         allowNull: false
       },
-      // address_id: {
-      //   type: Sequelize.INTEGER,
-      //   allowNull: true,
-      //   references: {
-      //     model: 'address',
-      //     key: 'id'
-      //   },
-      //   onUpdate: 'CASCADE',
-      //   onDelete: 'CASCADE'
-      // }
+      address_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'address',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      }
     });
   },
 

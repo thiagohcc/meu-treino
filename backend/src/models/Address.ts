@@ -12,6 +12,7 @@ export default class Address extends Model<InferAttributes<Address>, InferCreati
   declare neighborhood: string;
   declare city: string;
   declare state: string;
+  declare country: string;
   declare zip_code: number;
 }
 
@@ -46,6 +47,10 @@ Address.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
+  country: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   zip_code: {
     type: DataTypes.NUMBER,
     allowNull: false,
@@ -56,14 +61,14 @@ Address.init({
   underscored: true,
 });
 
-// Address.hasMany(Customer, {
-//   foreignKey: 'customerId',
-//   as: 'customer',
-//   constraints: false,
-// });
+Address.belongsTo(Customer, {
+  foreignKey: 'customerId',
+  as: 'customer',
+  constraints: false,
+});
 
-// Address.hasOne(GymUnit, {
-//   foreignKey: 'gymUnitId',
-//   as: 'gymUnit',
-//   constraints: false,
-// });
+Address.belongsTo(GymUnit, {
+  foreignKey: 'gymUnitId',
+  as: 'gymUnit',
+  constraints: false,
+});

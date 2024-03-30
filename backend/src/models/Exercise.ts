@@ -29,15 +29,19 @@ Exercise.init({
   photoUrl: {
     type: DataTypes.STRING,
     allowNull: false,
+    field: 'photo_url',
   },
   videoUrl: {
     type: DataTypes.STRING,
     allowNull: false,
+    field: 'video_url',
   },
 }, {
   sequelize: db,
+  tableName: 'exercise',
   modelName: 'exercise',
   underscored: true,
+  timestamps: false,
 });
 
 Exercise.hasMany(Workout, {
