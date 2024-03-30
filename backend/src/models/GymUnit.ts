@@ -52,6 +52,8 @@ GymUnit.init({
   sequelize: db,
   modelName: 'gym_unit',
   underscored: true,
+  tableName: 'gym_unit',
+  timestamps: false,
 });
 
 GymUnit.belongsTo(Address, {
