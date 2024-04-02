@@ -12,5 +12,6 @@ customerRouter.post('/', (req, res) => customerController.post(req, res));
 customerRouter.put('/:id', (req, res) => customerController.put(req, res));
 customerRouter.delete('/:id', (req, res) => customerController.delete(req, res));
 customerRouter.patch('/:id', (req, res) => customerController.patch(req, res));
+customerRouter.get('/complete/:id', (req, res) => customerController.getByIdComplete(req, res));
 
 export default customerRouter;

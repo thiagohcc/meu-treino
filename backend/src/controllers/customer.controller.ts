@@ -80,4 +80,14 @@ export default class CustomerController {
       return res.status(500).json((err as Error).message);
     }
   };
+
+  public getByIdComplete = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { type, message } = await this.customerService.getByIdComplete(Number(req.params.id));
+      return res.status(type).json(message);
+    } catch (err) {
+      return res.status(500).json((err as Error).message);
+    }
+  };
+  
 }

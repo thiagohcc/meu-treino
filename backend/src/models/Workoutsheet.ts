@@ -42,13 +42,9 @@ Workoutsheet.init({
 }, {
   sequelize: db,
   modelName: 'workoutsheet',
+  tableName: 'workoutsheet',
   underscored: true,
-});
-
-Workoutsheet.belongsTo(Customer, {
-  foreignKey: 'customerId',
-  as: 'customer',
-  constraints: false,
+  timestamps: false,
 });
 
 Workoutsheet.hasMany(Workout, {

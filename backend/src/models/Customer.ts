@@ -71,8 +71,14 @@ Customer.init({
   timestamps: false,
 });
 
-Customer.belongsTo(Address, {
-  foreignKey: 'address_id',
-  as: 'address',
+Customer.hasMany(Workoutsheet, {
+  foreignKey: 'customer_id',
+  as: 'workoutsheets',
+  constraints: false,
 });
 
+Customer.hasOne(Address, {
+  foreignKey: 'id',
+  as: 'address',
+  constraints: false,
+});

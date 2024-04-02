@@ -102,6 +102,29 @@ export default class CustomerService {
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }
+  };
+
+  public getByIdComplete = async (id: number) => {
+    try {
+      const customer = await Customer.findByPk(
+        id,
+        {
+          include: [
+            {
+              all: true,
+            },
+          ],
+        }
+      );
+
+      if (!customer) {
+        return { type: 404, message: "Customer not found." };
+      }
+
+      return { type: 200, message: customer };
+    } catch (err) {
+      return { type: 500, message: (err as Error).message };
+    }
   }
 
 };
