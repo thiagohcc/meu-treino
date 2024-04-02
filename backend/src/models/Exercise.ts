@@ -4,7 +4,7 @@ import db from '.';
 import Workout from './Workout';
 
 export default class Exercise extends Model<InferAttributes<Exercise>, InferCreationAttributes<Exercise>> {
-  declare id: number;
+  declare id?: number;
   declare name: string;
   declare number: number;
   declare photoUrl: string;
@@ -29,18 +29,19 @@ Exercise.init({
   photoUrl: {
     type: DataTypes.STRING,
     allowNull: false,
+    field: 'photo_url',
   },
   videoUrl: {
     type: DataTypes.STRING,
     allowNull: false,
+    field: 'video_url',
   },
 }, {
   sequelize: db,
+  tableName: 'exercise',
   modelName: 'exercise',
   underscored: true,
+  timestamps: false,
 });
 
-Exercise.hasMany(Workout, {
-  foreignKey: 'exerciseId',
-  as: 'workouts'
-});
+// Exercise.belongsToMany(Workout, { through: 'workout_exercises', foreignKey: 'exercise_id' });

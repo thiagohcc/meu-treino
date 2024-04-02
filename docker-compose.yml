@@ -30,7 +30,7 @@ services:
       DB_USER: 'root'
       DB_PASSWORD: password
       DB_HOST: db
-      DB_NAME: backend
+      DB_NAME: dev_database
       DB_PORT: 3306
       JWT_SECRET: secret
 

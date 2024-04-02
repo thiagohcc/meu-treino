@@ -2,9 +2,10 @@ import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequel
 import db from '.';
 
 import Customer from './Customer';
+import Workout from './Workout';
 
 export default class Workoutsheet extends Model<InferAttributes<Workoutsheet>, InferCreationAttributes<Workoutsheet>> {
-  declare id: number;
+  declare id?: number;
   declare customer_id: number;
   declare title: string;
   declare description: string;
@@ -41,10 +42,13 @@ Workoutsheet.init({
 }, {
   sequelize: db,
   modelName: 'workoutsheet',
+  tableName: 'workoutsheet',
   underscored: true,
+  timestamps: false,
 });
 
-Workoutsheet.belongsTo(Customer, {
-  foreignKey: 'customer_id',
-  as: 'customer'
-})
+Workoutsheet.hasMany(Workout, {
+  foreignKey: 'workoutsheet_id',
+  as: 'workouts',
+  constraints: false,
+});

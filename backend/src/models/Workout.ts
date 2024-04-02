@@ -1,14 +1,16 @@
-import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import db from '.';
 
-import Workoutsheet from './Workoutsheet';
 import Exercise from './Exercise';
+import WorkoutExercise from './WorkoutExercise';
 
 export default class Workout extends Model<InferAttributes<Workout>, InferCreationAttributes<Workout>> {
-  declare id: number;
+  declare id?: number;
   declare weight: number;
   declare repetitions: number;
   declare sets: number;
+
+  public readonly workoutsheet_id?: number;
 } 
 
 Workout.init({
@@ -30,17 +32,19 @@ Workout.init({
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  workoutsheet_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'workoutsheet',
+      key: 'id'
+    }
+  },
 }, {
   sequelize: db,
+  tableName: 'workout',
   modelName: 'workout',
   underscored: true,
+  timestamps: false,
 });
 
-Workout.belongsTo(Workoutsheet, {
-    foreignKey: 'workoutsheet_id',
-    as: 'workout_sheet'
-  });
-Workout.belongsTo(Exercise, {
-  foreignKey: 'exerciseId',
-  as: 'exercise'
-});
+Workout.belongsToMany(Exercise, { through: WorkoutExercise, foreignKey: 'workout_id' });

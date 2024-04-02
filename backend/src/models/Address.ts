@@ -1,18 +1,19 @@
-import {Model, DataTypes, InferAttributes, InferCreationAttributes} from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import db from '.';
 
 import Customer from './Customer';
 import GymUnit from './GymUnit';
 
 export default class Address extends Model<InferAttributes<Address>, InferCreationAttributes<Address>> {
-  declare id: number;
+  declare id?: number;
   declare street: string;
   declare number: number;
   declare complement: string;
   declare neighborhood: string;
   declare city: string;
   declare state: string;
-  declare zip_code: number;
+  declare country: string;
+  declare zip_code: string;
 }
 
 Address.init({
@@ -46,30 +47,20 @@ Address.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
+  country: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   zip_code: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 }, {
   sequelize: db,
   modelName: 'address',
+  tableName: 'address',
   underscored: true,
+  timestamps: false,
 });
 
-Address.belongsTo(Customer, {
-  foreignKey: 'customerId',
-  as: 'customer',
-  constraints: false,
-  scope: {
-    addressableType: 'customer',
-  }
-});
 
-Address.belongsTo(GymUnit, {
-  foreignKey: 'gymUnitId',
-  as: 'gymUnit',
-  constraints: false,
-  scope: {
-    addressableType: 'gymUnit',
-  }
-});

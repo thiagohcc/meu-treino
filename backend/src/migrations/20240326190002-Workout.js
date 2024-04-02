@@ -9,16 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      workoutsheet_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'workout_sheet',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-      },
       weight: {
         type: Sequelize.FLOAT,
         allowNull: false
@@ -30,6 +20,16 @@ module.exports = {
       sets: {
         type: Sequelize.INTEGER,
         allowNull: false
+      },
+      workoutsheet_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'workoutsheet',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
     });
   },

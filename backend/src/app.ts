@@ -1,5 +1,12 @@
 import * as express from 'express';
 
+import exerciseRouter from './routes/exercise.routes';
+import customerRouter from './routes/customer.routes';
+import workoutRouter from './routes/workout.routes';
+import addressRouter from './routes/address.routes';
+import gymUnitRouter from './routes/gymUnit.routes';
+import workoutsheet from './routes/workoutsheet.routes';
+
 class App {
   public app: express.Express;
 
@@ -20,6 +27,14 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+
+    this.app.use('/exercise', exerciseRouter);
+    this.app.use('/customer', customerRouter);
+    this.app.use('/workout', workoutRouter);
+    this.app.use('/address', addressRouter);
+    this.app.use('/gymUnit', gymUnitRouter);
+    this.app.use('/workoutsheet', workoutsheet);
+
   }
 
   public start(PORT: string | number): void {
