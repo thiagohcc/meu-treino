@@ -43,3 +43,5 @@ Exercise.init({
   underscored: true,
   timestamps: false,
 });
+
+// Exercise.belongsToMany(Workout, { through: 'workout_exercises', foreignKey: 'exercise_id' });

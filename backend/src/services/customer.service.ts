@@ -1,4 +1,9 @@
+import Exercise from "../models/Exercise";
 import Customer from "../models/Customer";
+import Workoutsheet from "../models/Workoutsheet";
+import Workout from "../models/Workout";
+import Address from "../models/Address";
+import WorkoutExercise from "../models/WorkoutExercise";
 
 export default class CustomerService {
   public getAll = async () => {
@@ -112,7 +117,33 @@ export default class CustomerService {
           include: [
             {
               all: true,
+              nested: true,
             },
+            // {
+            //   model: Workoutsheet,
+            //   as: 'workoutsheets',
+            //   include: [
+            //     {
+            //       model: Workout,
+            //       as: 'workouts',
+            //       include: [
+            //         {
+            //           model: WorkoutExercise,
+            //           as: 'workout_exercises',
+            //           include: [
+            //             {
+            //               model: Exercise,
+            //               as: 'exercise',
+            //             },
+            //           ],
+            //         },
+            //       ],
+            //     },
+            //   ],
+            // },
+            // {
+            //   model: Address,
+            // },
           ],
         }
       );

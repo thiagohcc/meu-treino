@@ -21,22 +21,36 @@ WorkoutExercise.init({
     allowNull: false,
   },
   workoutId: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'workout',
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   },
   exerciseId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'exercise',
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   },
 }, {
   sequelize: db,
-  modelName: 'workout',
+  modelName: 'workout_exercises',
+  tableName: 'workout_exercise',
   underscored: true,
+  timestamps: false,
 });
 
-Workout.belongsToMany(Exercise, { through: WorkoutExercise, foreignKey: 'workoutId' });
-Exercise.belongsToMany(Workout, { through: WorkoutExercise, foreignKey: 'exerciseId' });
+// Workout.belongsToMany(Exercise, { through: WorkoutExercise, foreignKey: 'workout_id' });
+// Exercise.belongsToMany(Workout, { through: WorkoutExercise, foreignKey: 'exercise_id' });
 
-WorkoutExercise.belongsTo(Workout, { foreignKey: 'workoutId' });
-WorkoutExercise.belongsTo(Exercise, { foreignKey: 'exerciseId' });
+// WorkoutExercise.belongsTo(Workout, { foreignKey: 'workout_id' });
+// WorkoutExercise.belongsTo(Exercise, { foreignKey: 'exercise_id' });
 

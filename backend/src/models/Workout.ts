@@ -1,6 +1,9 @@
 import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import db from '.';
 
+import Exercise from './Exercise';
+import WorkoutExercise from './WorkoutExercise';
+
 export default class Workout extends Model<InferAttributes<Workout>, InferCreationAttributes<Workout>> {
   declare id?: number;
   declare weight: number;
@@ -35,7 +38,7 @@ Workout.init({
       model: 'workoutsheet',
       key: 'id'
     }
-  }
+  },
 }, {
   sequelize: db,
   tableName: 'workout',
@@ -43,3 +46,5 @@ Workout.init({
   underscored: true,
   timestamps: false,
 });
+
+Workout.belongsToMany(Exercise, { through: WorkoutExercise, foreignKey: 'workout_id' });

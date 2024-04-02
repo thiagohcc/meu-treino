@@ -48,7 +48,7 @@ Workoutsheet.init({
 });
 
 Workoutsheet.hasMany(Workout, {
-  foreignKey: 'workoutsheetId',
+  foreignKey: 'workoutsheet_id',
   as: 'workouts',
   constraints: false,
 });

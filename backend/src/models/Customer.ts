@@ -77,6 +77,12 @@ Customer.hasMany(Workoutsheet, {
   constraints: false,
 });
 
+Workoutsheet.belongsTo(Customer, {
+  foreignKey: 'customer_id',
+  as: 'customer',
+  constraints: false,
+});
+
 Customer.hasOne(Address, {
   foreignKey: 'id',
   as: 'address',

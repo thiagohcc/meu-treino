@@ -16,7 +16,15 @@ const workout_exercise = [
   {
     workout_id: 2,
     exercise_id: 2,
-  }
+  },
+  {
+    workout_id: 3,
+    exercise_id: 1,
+  },
+  {
+    workout_id: 3,
+    exercise_id: 2,
+  },
 ];
 
 module.exports = {
