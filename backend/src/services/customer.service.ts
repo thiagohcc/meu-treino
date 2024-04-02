@@ -17,7 +17,7 @@ export default class CustomerService {
 
   getById = async (id: number) => {
     try {
-      const customer = await Customer.findByPk(id);
+      const customer = await Customer.findByPk(id, { include: [{ all: true, nested: true }] });
 
       if (!customer) {
         return { type: 404, message: "Customer not found." };
@@ -55,10 +55,22 @@ export default class CustomerService {
     }
   };
 
-  public post = async (customer: Customer) => {
+  public post = async (customer: Customer, address?: Address) => {
     try {
       const newCustomer = await Customer.create(customer);
-      return { type: 201, message: newCustomer };
+
+      if (!address) {
+        return { type: 201, message: newCustomer };
+      } else {
+        const newAddress = await Address.create(address);
+        
+        newCustomer.address_id = newAddress.id;
+        await newCustomer.save();
+        
+        const customerCreated = await Customer.findByPk(newCustomer.id, { include: [{ model: Address, as: 'address'}] });
+  
+        return { type: 201, message: customerCreated };
+      }
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }
@@ -108,55 +120,5 @@ export default class CustomerService {
       return { type: 500, message: (err as Error).message };
     }
   };
-
-  public getByIdComplete = async (id: number) => {
-    try {
-      const customer = await Customer.findByPk(
-        id,
-        {
-          include: [
-            {
-              all: true,
-              nested: true,
-            },
-            // {
-            //   model: Workoutsheet,
-            //   as: 'workoutsheets',
-            //   include: [
-            //     {
-            //       model: Workout,
-            //       as: 'workouts',
-            //       include: [
-            //         {
-            //           model: WorkoutExercise,
-            //           as: 'workout_exercises',
-            //           include: [
-            //             {
-            //               model: Exercise,
-            //               as: 'exercise',
-            //             },
-            //           ],
-            //         },
-            //       ],
-            //     },
-            //   ],
-            // },
-            // {
-            //   model: Address,
-            // },
-          ],
-        }
-      );
-
-      if (!customer) {
-        return { type: 404, message: "Customer not found." };
-      }
-
-      return { type: 200, message: customer };
-    } catch (err) {
-      return { type: 500, message: (err as Error).message };
-    }
-  }
-
 };
 

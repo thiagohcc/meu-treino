@@ -14,7 +14,7 @@ export default class Customer extends Model<InferAttributes<Customer>, InferCrea
   declare cpf: string;
   declare isActive: boolean;
 
-  public readonly address_id?: Address;
+  public address_id?: number;
 }
 
 Customer.init({
@@ -58,6 +58,7 @@ Customer.init({
   },
   address_id: {
     type: DataTypes.INTEGER,
+    allowNull: true,
     references: {
       model: 'address',
       key: 'id'

@@ -1,4 +1,4 @@
-interface ICostumer {
+export interface INewCostumer {
     id?: number;
     firstName: string;
     lastName: string;
@@ -7,6 +7,5 @@ interface ICostumer {
     phone: string;
     cpf: number;
     isActive: boolean;
+    
 };
-
-export default ICostumer;

@@ -47,7 +47,7 @@ export default class CustomerController {
 
   public post = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const { type, message } = await this.customerService.post(req.body);
+      const { type, message } = await this.customerService.post(req.body.customer, req.body.address);
       return res.status(type).json(message);
     } catch (err) {
       return res.status(500).json((err as Error).message);
@@ -80,14 +80,4 @@ export default class CustomerController {
       return res.status(500).json((err as Error).message);
     }
   };
-
-  public getByIdComplete = async (req: Request, res: Response): Promise<Response> => {
-    try {
-      const { type, message } = await this.customerService.getByIdComplete(Number(req.params.id));
-      return res.status(type).json(message);
-    } catch (err) {
-      return res.status(500).json((err as Error).message);
-    }
-  };
-  
 }
