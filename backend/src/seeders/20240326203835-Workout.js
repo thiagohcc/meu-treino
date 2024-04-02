@@ -133,7 +133,18 @@ const workout = [
     repetitions: 6,
     sets: 3,
   },
-
+  {
+    workoutsheet_id: 6,
+    weight: 80,
+    repetitions: 6,
+    sets: 3,
+  },
+  {
+    workoutsheet_id: 6,
+    weight: 80,
+    repetitions: 6,
+    sets: 3,
+  },
 ];
 
 module.exports = {

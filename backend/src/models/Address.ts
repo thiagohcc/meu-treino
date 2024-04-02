@@ -13,7 +13,7 @@ export default class Address extends Model<InferAttributes<Address>, InferCreati
   declare city: string;
   declare state: string;
   declare country: string;
-  declare zip_code: number;
+  declare zip_code: string;
 }
 
 Address.init({
@@ -52,7 +52,7 @@ Address.init({
     allowNull: false,
   },
   zip_code: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 }, {
