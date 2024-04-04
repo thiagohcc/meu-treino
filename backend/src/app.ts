@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import * as express from 'express';
 
 import exerciseRouter from './routes/exercise.routes';

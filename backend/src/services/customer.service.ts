@@ -1,11 +1,13 @@
-import Exercise from "../models/Exercise";
-import Customer from "../models/Customer";
-import Workoutsheet from "../models/Workoutsheet";
-import Workout from "../models/Workout";
-import Address from "../models/Address";
-import WorkoutExercise from "../models/WorkoutExercise";
+import 'reflect-metadata';
 
+import Customer from "../models/Customer";
+import Address from "../models/Address";
+
+import { inject, injectable } from "tsyringe";
+
+@injectable()
 export default class CustomerService {
+
   public getAll = async () => {
     try {
       const allCustomers = await Customer.findAll();
@@ -15,7 +17,7 @@ export default class CustomerService {
     }
   };
 
-  getById = async (id: number) => {
+  public getById = async (id: number) => {
     try {
       const customer = await Customer.findByPk(id, { include: [{ all: true, nested: true }] });
 

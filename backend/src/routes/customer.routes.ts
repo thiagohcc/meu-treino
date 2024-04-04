@@ -1,8 +1,9 @@
 import { Router } from 'express';
+import container from '../container/container.config';
 import CustomerController from '../controllers/customer.controller';
 
 const customerRouter: Router = Router();
-const customerController: CustomerController = new CustomerController();
+const customerController = container.resolve<CustomerController>(CustomerController);
 
 customerRouter.get('/', (req, res) => customerController.getAll(req, res));
 customerRouter.get('/cpf', (req, res) => customerController.getByCpf(req, res));

@@ -1,0 +1,26 @@
+{
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "all": true,
+  "exclude": [
+    "src/config/",
+    "src/migrations/",
+    "src/seeds/",
+    "src/types/",
+    "src/utils/",
+    "src/tests/",
+    "src/router/",
+    "src/routes/",
+    "src/seeders/",
+    "src/interfaces/",
+    "build/",
+    "coverage/",
+    "src/app.ts",
+    "src/server.ts"
+  ],
+  "reporter": [
+    "text",
+    "html"
+  ],
+  "report-dir": "coverage"
+
+}

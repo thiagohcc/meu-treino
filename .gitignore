@@ -31,3 +31,5 @@ yarn-error.log*
 
 # Ignore any build cache directories
 /.cache
+
+coverage/

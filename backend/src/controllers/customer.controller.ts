@@ -1,15 +1,15 @@
+import 'reflect-metadata';
 import { Request, Response } from 'express';
-
+import { inject, injectable } from 'tsyringe';
 import CustomerService from '../services/customer.service';
 
+@injectable()
 export default class CustomerController {
-  private customerService: CustomerService;
+  constructor(
+    @inject('CustomerService') private customerService: CustomerService
+  ) {}
 
-  constructor() {
-    this.customerService = new CustomerService();
-  };
-
-  async getAll(req: Request, res: Response): Promise<Response> {
+  public async getAll(req: Request, res: Response): Promise<Response> {
     try {
       const { type, message } = await this.customerService.getAll();
       return res.status(type).json(message);
@@ -18,7 +18,7 @@ export default class CustomerController {
     }
   };
 
-  async getById(req: Request, res: Response): Promise<Response> {
+  public async getById(req: Request, res: Response): Promise<Response> {
     try {
       const { type, message } = await this.customerService.getById(Number(req.params.id));
       return res.status(type).json(message);
@@ -27,7 +27,7 @@ export default class CustomerController {
     }
   };
 
-  async getByCpf(req: Request, res: Response): Promise<Response> {
+  public async getByCpf(req: Request, res: Response): Promise<Response> {
     try {
       const { type, message } = await this.customerService.getByCpf(req.body.cpf);
       return res.status(type).json(message);
@@ -36,7 +36,7 @@ export default class CustomerController {
     }
   };
 
-  async getByEmail(req: Request, res: Response): Promise<Response> {
+  public async getByEmail(req: Request, res: Response): Promise<Response> {
     try {
       const { type, message } = await this.customerService.getByEmail(req.body.email);
       return res.status(type).json(message);

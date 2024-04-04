@@ -7,8 +7,11 @@ services:
     restart: always
     ports:
       - 3306:3306
+      - 33060:33060
     environment:
       MYSQL_ROOT_PASSWORD: password
+    networks:
+      - meu_treino_api
 
   backend:
     image: backend-meu-treino
@@ -30,9 +33,12 @@ services:
       DB_USER: 'root'
       DB_PASSWORD: password
       DB_HOST: db
-      DB_NAME: dev_database
+      DB_NAME: database
       DB_PORT: 3306
       JWT_SECRET: secret
+    
+    networks:
+      - meu_treino_api
 
   # frontend:
   #   build: ./frontend
@@ -48,3 +54,6 @@ services:
   #   ports:
   #     - 3000:3000
 
+networks:
+  meu_treino_api:
+    driver: bridge
