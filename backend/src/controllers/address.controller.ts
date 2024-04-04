@@ -1,13 +1,15 @@
+import 'reflect-metadata';
+import { inject, injectable } from 'tsyringe';
 import { Request, Response } from 'express';
 
 import AddressService from '../services/address.service';
 
+@injectable()
 export default class AddressController {
-  private addressService: AddressService;
 
-  constructor() {
-    this.addressService = new AddressService();
-  }
+  constructor(
+    @inject('AddressService') private addressService: AddressService
+  ) {}
 
   public getAll = async (req: Request, res: Response) => {
     const response = await this.addressService.getAll();

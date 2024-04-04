@@ -1,5 +1,10 @@
+import 'reflect-metadata';
+
 import Address from '../models/Address';
 
+import { injectable } from 'tsyringe';
+
+@injectable()
 export default class AddressService {
   public getAll = async () => {
     try {

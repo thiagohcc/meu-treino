@@ -1,9 +1,10 @@
 import { Router } from "express";
+import container from "../container/container.config";
 
 import AddressController from "../controllers/address.controller";
 
 const addressRouter = Router();
-const addressController = new AddressController();
+const addressController = container.resolve<AddressController>(AddressController);
 
 addressRouter.get("/", (req, res) => addressController.getAll(req, res));
 addressRouter.get("/:id", (req, res) => addressController.getById(req, res));
