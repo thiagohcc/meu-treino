@@ -32,7 +32,7 @@ export default class CustomerService {
 
   public getByCpf = async (cpf: string) => {
     try {
-      const customer = await Customer.findOne({ where: { cpf } });
+      const customer = await Customer.findOne({ where: { cpf }, include: [{ all: true, nested: true }] });
       if (!customer) {
         return { type: 404, message: "Customer not found." };
       }
@@ -45,7 +45,7 @@ export default class CustomerService {
 
   public getByEmail = async (email: string) => {
     try {
-      const customer = await Customer.findOne({ where: { email } });
+      const customer = await Customer.findOne({ where: { email }, include: [{ all: true, nested: true }] });
 
       if (!customer) {
         return { type: 404, message: "Customer not found." };
