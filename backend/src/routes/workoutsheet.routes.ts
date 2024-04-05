@@ -1,9 +1,9 @@
 import { Router } from 'express';
-
+import container from '../container/container.config';
 import WorkoutsheetController from '../controllers/workoutsheet.controller';
 
 const workoutsheetRouter: Router = Router();
-const workoutsheetController = new WorkoutsheetController();
+const workoutsheetController: WorkoutsheetController = container.resolve<WorkoutsheetController>('WorkoutsheetController');
 
 workoutsheetRouter.get('/', workoutsheetController.getAll);
 workoutsheetRouter.get('/:id', workoutsheetController.getById);

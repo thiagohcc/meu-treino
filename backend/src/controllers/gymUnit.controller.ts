@@ -1,13 +1,15 @@
+import 'reflect-metadata';
+
 import { Request, Response } from 'express';
+import { injectable, inject } from 'tsyringe';
 
 import GymUnitService from '../services/gymUnit.service';
 
+@injectable()
 export default class GymUnitController {
-  private gymUnitService: GymUnitService;
-
-  constructor() {
-    this.gymUnitService = new GymUnitService();
-  };
+  constructor(
+    @inject('GymUnitService') private gymUnitService: GymUnitService
+    ) {};
 
   async getAll(req: Request, res: Response): Promise<Response> {
     try {

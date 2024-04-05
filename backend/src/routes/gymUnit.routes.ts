@@ -1,9 +1,9 @@
 import { Router } from 'express';
-
+import container from '../container/container.config';
 import GymUnitController from '../controllers/gymUnit.controller';
 
 const gymUnitRouter: Router = Router();
-const gymUnitController: GymUnitController = new GymUnitController();
+const gymUnitController: GymUnitController = container.resolve<GymUnitController>('GymUnitController');
 
 gymUnitRouter.get('/', (req, res) => gymUnitController.getAll(req, res));
 gymUnitRouter.get('/:id', (req, res) => gymUnitController.getById(req, res));

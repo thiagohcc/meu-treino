@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-
 import ExerciseService from '../services/exercise.service';
 
-class ExerciseController {
-  private exerciseService: ExerciseService;
+import { inject, injectable } from 'tsyringe';
 
-  constructor() {
-    this.exerciseService = new ExerciseService();
-  };
+@injectable()
+class ExerciseController {
+  constructor(
+    @inject('ExerciseService') private exerciseService: ExerciseService
+  ) {};
 
   public async getAll(req: Request, res: Response): Promise<Response> {
     try {

@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import ExerciseController from '../controllers/exercise.controller';
+import container from '../container/container.config';
 
 const exerciseRouter: Router = Router();
-const exerciseController: ExerciseController = new ExerciseController();
+const exerciseController: ExerciseController = container.resolve<ExerciseController>(ExerciseController);
 
 exerciseRouter.get('/', (req, res) => exerciseController.getAll(req, res));
 exerciseRouter.get('/name', (req, res) => exerciseController.getByName(req, res));

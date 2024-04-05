@@ -1,13 +1,15 @@
+import 'reflect-metadata';
+
 import { Request, Response } from 'express';
-
 import WorkoutService from '../services/workout.service';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export default class WorkoutController {
-  private workoutService: WorkoutService;
 
-  constructor() {
-    this.workoutService = new WorkoutService();
-  };
+  constructor(
+    @inject ('WorkoutService') private workoutService: WorkoutService
+  ) {};
 
   public getAll = async (req: Request, res: Response) => {
     

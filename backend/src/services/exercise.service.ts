@@ -1,5 +1,8 @@
 import Exercise from "../models/Exercise"
 
+import { injectable } from "tsyringe";
+
+@injectable()
 export default class ExerciseService {
   public getAll = async () => {
     try {

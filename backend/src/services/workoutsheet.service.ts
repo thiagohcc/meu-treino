@@ -1,5 +1,8 @@
+import 'reflect-metadata';
+import { inject, injectable } from 'tsyringe';
 import Workoutsheet from "../models/Workoutsheet";
 
+@injectable()
 export default class workoutsheetService {
   public getAll = async () => {
     try {

@@ -1,8 +1,9 @@
 import { Router } from "express";
 import WorkoutController from "../controllers/workout.controller";
+import container from "../container/container.config";
 
 const workoutRouter: Router = Router();
-const workoutController: WorkoutController = new WorkoutController();
+const workoutController: WorkoutController = container.resolve<WorkoutController>("WorkoutController");
 
 workoutRouter.get("/", (req, res) => workoutController.getAll(req, res));
 workoutRouter.get("/:id", (req, res) => workoutController.getById(req, res));

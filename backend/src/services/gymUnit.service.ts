@@ -1,5 +1,10 @@
+import 'reflect-metadata';
+
 import GymUnit from "../models/GymUnit";
 
+import { injectable } from "tsyringe";
+
+@injectable()
 export default class GymUnitService {
   public getAll = async () => {
     try {
