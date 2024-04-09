@@ -31,7 +31,7 @@ export default class GymUnitController {
 
   public post = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const { type, message } = await this.gymUnitService.post(req.body);
+      const { type, message } = await this.gymUnitService.post(req.body.gymUnit, req.body.address);
       return res.status(type).json(message);
     } catch (err) {
       return res.status(500).json((err as Error).message);

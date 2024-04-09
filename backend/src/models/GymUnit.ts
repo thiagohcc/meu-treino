@@ -11,7 +11,7 @@ export default class GymUnit extends Model<InferAttributes<GymUnit>, InferCreati
   declare open_hour: Date;
   declare close_hour: Date;
 
-  public readonly address_id?: Address;
+  public address_id?: number;
 }
 
 GymUnit.init({

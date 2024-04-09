@@ -48,9 +48,9 @@ export default class AddressController {
 
   public patch = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
-    const address = req.body;
-    const response = await this.addressService.patch(id, address);
+    const address = req.body.updates;
+    const { type, message } = await this.addressService.patch(id, address);
 
-    return res.status(response.type).json(response.message);
+    return res.status(type).json(message);
   };
 }

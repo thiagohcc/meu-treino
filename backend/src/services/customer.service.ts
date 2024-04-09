@@ -59,19 +59,18 @@ export default class CustomerService {
 
   public post = async (customer: Customer, address?: Address) => {
     try {
-      const newCustomer = await Customer.create(customer);
-
       if (!address) {
+        const newCustomer = await Customer.create(customer);
         return { type: 201, message: newCustomer };
+
       } else {
         const newAddress = await Address.create(address);
+        const newCustomer = { ...customer, address_id: newAddress.id };
+        const customerCreated = await Customer.create(newCustomer);
         
-        newCustomer.address_id = newAddress.id;
-        await newCustomer.save();
-        
-        const customerCreated = await Customer.findByPk(newCustomer.id, { include: [{ model: Address, as: 'address'}] });
+        const customerCompleted = await Customer.findByPk(customerCreated.id, { include: [{ model: Address, as: 'address'}] });
   
-        return { type: 201, message: customerCreated };
+        return { type: 201, message: customerCompleted };
       }
     } catch (err) {
       return { type: 500, message: (err as Error).message };
@@ -110,7 +109,7 @@ export default class CustomerService {
 
   public patch = async (id: number, updates: Partial<Customer>) => {
     try {
-      const customer = await Customer.findByPk(id);
+      const customer = await Customer.findByPk(id, { include: [{ all: true, nested: true }] });
 
       if (!customer) {
         return { type: 404, message: "Customer not found." };

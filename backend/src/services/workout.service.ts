@@ -1,5 +1,7 @@
 import 'reflect-metadata';
 import Workout from '../models/Workout';
+import WorkoutExercise from '../models/WorkoutExercise';
+import Exercise from '../models/Exercise';
 import { inject, injectable } from 'tsyringe';
 
 @injectable()
@@ -42,17 +44,27 @@ export default class WorkoutService {
     }
   };
 
-  public post = async (weight: number, repetitions: number, sets: number, workoutsheetId: number) => {
+  public post = async (workout: Workout, exerciseId: number) => {
     try {
-      const workout = await Workout.create({ weight, repetitions, sets, workoutsheet_id: workoutsheetId });
+      const workoutData = await Workout.create(workout);
 
-      return { type: 201, message: workout };
+      const workoutId = Number(workoutData.id);
+      
+
+      await WorkoutExercise.create({
+        workoutId,
+        exerciseId,
+      });
+
+      const exercise = await Exercise.findByPk(exerciseId);
+
+      return { type: 201, message: { workoutData, exercise } };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }
   };
 
-  public put = async (id: number, weight: number, repetitions: number, sets: number) => {
+  public put = async (id: number, updates: Partial<Workout>) => {
     try {
       const workout = await Workout.findByPk(id);
 
@@ -60,11 +72,7 @@ export default class WorkoutService {
         return { type: 404, message: 'Workout not found.' };
       }
 
-      workout.weight = weight;
-      workout.repetitions = repetitions;
-      workout.sets = sets;
-
-      await workout.save();
+      workout.update(updates);
 
       return { type: 200, message: workout };
     } catch (err) {

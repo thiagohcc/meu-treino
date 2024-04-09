@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
+
 import Workoutsheet from "../models/Workoutsheet";
 
 @injectable()
@@ -58,6 +59,8 @@ export default class workoutsheetService {
         return { type: 404, message: 'workoutsheet not found.' }
       }
 
+      await updatedWorkoutsheet.update(workoutsheet);
+
       return { type: 200, message: updatedWorkoutsheet }
     } catch (err) {
       return { type: 500, message: (err as Error).message }
@@ -71,6 +74,8 @@ export default class workoutsheetService {
       if (!workoutsheet) {
         return { type: 404, message: 'Workoutsheet not found.' };
       }
+
+      await workoutsheet.destroy();
 
       return { type: 200, message: 'Workout sheet deleted.' }
     } catch (err) {

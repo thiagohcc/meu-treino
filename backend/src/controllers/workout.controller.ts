@@ -47,8 +47,8 @@ export default class WorkoutController {
 
   public post = async (req: Request, res: Response) => {
     try {
-      const { weight, repetitions, sets, workoutsheetId } = req.body;
-      const response = await this.workoutService.post(weight, repetitions, sets, workoutsheetId);
+      const { workout, exerciseId } = req.body;
+      const response = await this.workoutService.post(workout, exerciseId);
 
       res.status(response.type).json(response.message);
     } catch (err) {
@@ -58,8 +58,7 @@ export default class WorkoutController {
 
   public put = async (req: Request, res: Response) => {
     try {
-      const { weight, repetitions, sets } = req.body;
-      const response = await this.workoutService.put(parseInt(req.params.id), weight, repetitions, sets);
+      const response = await this.workoutService.put(parseInt(req.params.id), req.body);
 
       res.status(response.type).json(response.message);
     } catch (err) {

@@ -70,13 +70,19 @@ export default class AddressService {
   public patch = async (id: number, updates: Partial<Address>) => {
     try {
       const address = await Address.findByPk(id);
+      console.log(address);
+      
 
       if (!address) {
         return { type: 404, message: 'Address not found.' };
       }
 
       await address.update(updates);
-      return { type: 200, message: address };
+
+      const addressUpdated = await Address.findByPk(id);
+      console.log(addressUpdated);
+      
+      return { type: 200, message: addressUpdated };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }

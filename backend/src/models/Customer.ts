@@ -86,6 +86,7 @@ Workoutsheet.belongsTo(Customer, {
 
 Customer.hasOne(Address, {
   foreignKey: 'id',
+  sourceKey: 'address_id',
   as: 'address',
   constraints: false,
 });
