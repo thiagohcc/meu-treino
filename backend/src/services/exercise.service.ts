@@ -42,25 +42,25 @@ export default class ExerciseService {
     }
   };
 
-  public post = async (name: string, number: number, photoUrl: string, videoUrl: string) => {
+  public post = async (exercise: Exercise) => {
     try {
-      const exercise = await Exercise.create({ name, number, photoUrl, videoUrl });
+      const newExercise = await Exercise.create(exercise);
 
-      return { type: 201, message: exercise };
+      return { type: 201, message: newExercise };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }
   };
 
-  public put = async (id: number, name: string, number: number, photoUrl: string, videoUrl: string) => {
+  public put = async (id: number, exercise: Exercise) => {
     try {
-      const exercise = await Exercise.findByPk(id);
+      const exerciseUpdate = await Exercise.findByPk(id);
 
-      if (!exercise) {
+      if (!exerciseUpdate) {
         return { type: 404, message: "Exercise not found." };
       }
 
-      await exercise.update({ name, number, photoUrl, videoUrl });
+      await exerciseUpdate.update(exercise);
 
       return { type: 200, message: exercise };
     } catch (err) {

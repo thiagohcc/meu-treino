@@ -38,7 +38,7 @@ class ExerciseController {
 
   public async post(req: Request, res: Response): Promise<Response> {
     try {
-      const { type, message } = await this.exerciseService.post(req.body.name, req.body.number, req.body.photoUrl, req.body.videoUrl);
+      const { type, message } = await this.exerciseService.post(req.body);
       return res.status(type).json(message);
     } catch (err) {
       return res.status(500).json((err as Error).message);
@@ -47,7 +47,7 @@ class ExerciseController {
 
   public async put(req: Request, res: Response): Promise<Response> {
     try {
-      const { type, message } = await this.exerciseService.put(Number(req.params.id), req.body.name, req.body.number, req.body.photoUrl, req.body.videoUrl);
+      const { type, message } = await this.exerciseService.put(Number(req.params.id), req.body);
       return res.status(type).json(message);
     } catch (err) {
       return res.status(500).json((err as Error).message);

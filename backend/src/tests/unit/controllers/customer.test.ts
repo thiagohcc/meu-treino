@@ -1,10 +1,7 @@
 import 'mocha';
 import * as chai from 'chai';
-// const chai = require('chai');
-// const chaiHttp = require('chai-http');
 import * as sinonChai from 'sinon-chai';
 const sinon = require('sinon');
-import { SinonStub } from 'sinon';
 import { Request, Response } from 'express';
 import CustomerController from '../../../controllers/customer.controller';
 import container from '../../../container/container.config';

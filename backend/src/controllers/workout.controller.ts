@@ -82,6 +82,5 @@ export default class WorkoutController {
     } catch (err) {
       res.status(500).json((err as Error).message);
     }
-  }
-
+  };
 }

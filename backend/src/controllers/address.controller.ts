@@ -12,45 +12,61 @@ export default class AddressController {
   ) {}
 
   public getAll = async (req: Request, res: Response) => {
-    const response = await this.addressService.getAll();
+    try {
+      const response = await this.addressService.getAll();
 
-    return res.status(response.type).json(response.message);
+      return res.status(response.type).json(response.message);
+    } catch (error) {
+      return res.status(500).json((error as Error).message);
+    } 
   };
 
   public getById = async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id);
-    const response = await this.addressService.getById(id);
-
-    return res.status(response.type).json(response.message);
+    try {
+      const response = await this.addressService.getById(Number(req.params.id));
+      return res.status(response.type).json(response.message);
+    } catch (error) {
+      return res.status(500).json((error as Error).message);
+    }
   };
 
   public post = async (req: Request, res: Response) => {
-    const address = req.body;
-    const response = await this.addressService.post(address);
-
-    return res.status(response.type).json(response.message);
+    try {
+      const response = await this.addressService.post(req.body);
+      return res.status(response.type).json(response.message);
+    } catch (error) {
+      return res.status(500).json((error as Error).message);
+    }
   };
 
   public put = async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id);
-    const address = req.body;
-    const response = await this.addressService.put(id, address);
-
-    return res.status(response.type).json(response.message);
+    try {
+      const response = await this.addressService.put(Number(req.params.id), req.body);
+      return res.status(response.type).json(response.message);
+    } catch (error) {
+      return res.status(500).json((error as Error).message);
+    }
   };
 
   public delete = async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id);
-    const response = await this.addressService.delete(id);
-
-    return res.status(response.type).json(response.message);
+    try {
+      const response = await this.addressService.delete(Number(req.params.id));
+      return res.status(response.type).json(response.message);
+    } catch (error) {
+      return res.status(500).json((error as Error).message);
+    }
   };
 
   public patch = async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id);
-    const address = req.body.updates;
-    const { type, message } = await this.addressService.patch(id, address);
+    try {
+      const id = parseInt(req.params.id);
+      const address = req.body.updates;
+      const { type, message } = await this.addressService.patch(Number(req.params.id), req.body.updates);
 
-    return res.status(type).json(message);
+      return res.status(type).json(message);
+    } catch (error) {
+      return res.status(500).json((error as Error).message);
+    }
+
   };
 }

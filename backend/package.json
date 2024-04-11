@@ -11,7 +11,8 @@
     "test:percent": "nyc report --reporter=lcov --reporter=text-summary",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "build": "tsc --project tsconfig.json",
-    "prestart": "npm run build && npm run db:reset"
+    "prestart": "npm run build && npm run db:reset",
+    "test:filter": "mocha --require ts-node/register ./src/tests/**/**/*.test.ts --exit -t 60000 --exit --grep"
   },
   "keywords": [],
   "author": "",

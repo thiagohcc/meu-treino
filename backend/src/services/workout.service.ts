@@ -44,21 +44,20 @@ export default class WorkoutService {
     }
   };
 
-  public post = async (workout: Workout, exerciseId: number) => {
+  public post = async (workoutData: Workout, exerciseId: number) => {
     try {
-      const workoutData = await Workout.create(workout);
+      const newWorkout = await Workout.create(workoutData);
 
-      const workoutId = Number(workoutData.id);
-      
+      const workoutId = Number(newWorkout.id);
 
       await WorkoutExercise.create({
         workoutId,
         exerciseId,
       });
 
-      const exercise = await Exercise.findByPk(exerciseId);
+      const workout = await Workout.findByPk(workoutId, { include: [{model: Exercise}] });
 
-      return { type: 201, message: { workoutData, exercise } };
+      return { type: 201, message: { workout } };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }
