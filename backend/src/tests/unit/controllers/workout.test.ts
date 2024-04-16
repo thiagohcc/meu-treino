@@ -193,6 +193,175 @@ describe('=== Workout_Controller ===', () => {
       expect(service.post).to.have.been.calledWith(mock.newWorkout.workout, mock.newWorkout.exerciseId);
     });
 
+    it('retorna uma mensagem de erro ao tentar criar um novo workout', () => {
+      const service = container.resolve<WorkoutService>('WorkoutService');
+      service.post = sinon.stub().throws(new Error('Erro ao tentar criar um novo workout'));
+
+      const workoutController = new WorkoutController(service);
+
+      const req = { body: mock.newWorkout } as unknown as Request;
+      const res = {
+        status: (code: number) => {
+          return {
+            json: (result: any) => {
+              expect(code).to.be.equal(500);
+              expect(result).to.be.equal('Erro ao tentar criar um novo workout');
+            }
+          };
+        }
+      } as unknown as Response;
+
+      workoutController.post(req, res);
+
+      expect(service.post).to.have.been.calledOnce;
+      expect(service.post).to.have.been.calledWith(mock.newWorkout.workout, mock.newWorkout.exerciseId);
+    });
+
+    it('é possível atualizar um workout corretamente', async () => {
+      const service = container.resolve<WorkoutService>('WorkoutService');
+      service.put = sinon.stub().resolves({ type: 200, message: mock.updateWorkout.workoutUpdated });
+
+      const workoutController = new WorkoutController(service);
+
+      const req = { params: { id: 1 }, body: mock.updateWorkout.updateData } as unknown as Request;
+      const res = {
+        status: (code: number) => {
+          return {
+            json: (result: any) => {
+              expect(code).to.be.equal(200);
+              expect(result).to.be.equal(mock.updateWorkout.workoutUpdated);
+            }
+          };
+        }
+      } as unknown as Response;
+
+      await workoutController.put(req, res);
+
+      expect(service.put).to.have.been.calledOnce;
+      expect(service.put).to.have.been.calledWith(1, mock.updateWorkout.updateData);
+    });
+
+    it('retorna uma mensagem de erro ao tentar atualizar um workout', async () => {
+      const service = container.resolve<WorkoutService>('WorkoutService');
+      service.put = sinon.stub().throws(new Error('Erro ao tentar atualizar um workout'));
+
+      const workoutController = new WorkoutController(service);
+
+      const req = { params: { id: 1 }, body: mock.updateWorkout.updateData } as unknown as Request;
+      const res = {
+        status: (code: number) => {
+          return {
+            json: (result: any) => {
+              expect(code).to.be.equal(500);
+              expect(result).to.be.equal('Erro ao tentar atualizar um workout');
+            }
+          };
+        }
+      } as unknown as Response;
+
+      await workoutController.put(req, res);
+
+      expect(service.put).to.have.been.calledOnce;
+      expect(service.put).to.have.been.calledWith(1, mock.updateWorkout.updateData);
+    });
+
+    it('é possível deletar um workout corretamente', async () => {
+      const service = container.resolve<WorkoutService>('WorkoutService');
+      service.delete = sinon.stub().resolves({ type: 200, message: 'Workout deleted.' });
+
+      const workoutController = new WorkoutController(service);
+
+      const req = { params: { id: 1 } } as unknown as Request;
+      const res = {
+        status: (code: number) => {
+          return {
+            json: (result: any) => {
+              expect(code).to.be.equal(200);
+              expect(result).to.be.equal('Workout deleted.');
+            }
+          };
+        }
+      } as unknown as Response;
+
+      await workoutController.delete(req, res);
+
+      expect(service.delete).to.have.been.calledOnce;
+      expect(service.delete).to.have.been.calledWith(1);
+    });
+
+    it('retorna uma mensagem de erro ao tentar deletar um workout', async () => {
+      const service = container.resolve<WorkoutService>('WorkoutService');
+      service.delete = sinon.stub().throws(new Error('Erro ao tentar deletar um workout'));
+
+      const workoutController = new WorkoutController(service);
+
+      const req = { params: { id: 1 } } as unknown as Request;
+      const res = {
+        status: (code: number) => {
+          return {
+            json: (result: any) => {
+              expect(code).to.be.equal(500);
+              expect(result).to.be.equal('Erro ao tentar deletar um workout');
+            }
+          };
+        }
+      } as unknown as Response;
+
+      await workoutController.delete(req, res);
+
+      expect(service.delete).to.have.been.calledOnce;
+      expect(service.delete).to.have.been.calledWith(1);
+    });
+
+    it('é possível atualizar parcialmente um workout corretamente', async () => {
+      const service = container.resolve<WorkoutService>('WorkoutService');
+      service.patch = sinon.stub().resolves({ type: 200, message: mock.workoutPartialUpdate });
+
+      const workoutController = new WorkoutController(service);
+     
+
+      const req = { params: { id: 1 }, body: mock.workoutPartialUpdateData } as unknown as Request;
+      const res = {
+        status: (code: number) => {
+          return {
+            json: (result: any) => {
+              expect(code).to.be.equal(200);
+              expect(result).to.be.equal(mock.workoutPartialUpdate);
+            }
+          };
+        }
+      } as unknown as Response;
+
+      await workoutController.patch(req, res);
+
+      expect(service.patch).to.have.been.calledOnce;
+      expect(service.patch).to.have.been.calledWith(1, mock.workoutPartialUpdateData.updates);
+    });
+
+    it('retorna uma mensagem de erro ao tentar atualizar parcialmente um workout', async () => {
+      const service = container.resolve<WorkoutService>('WorkoutService');
+      service.patch = sinon.stub().throws(new Error('Erro ao tentar atualizar parcialmente um workout'));
+
+      const workoutController = new WorkoutController(service);
+
+      const req = { params: { id: 1 }, body: mock.workoutPartialUpdateData } as unknown as Request;
+      const res = {
+        status: (code: number) => {
+          return {
+            json: (result: any) => {
+              expect(code).to.be.equal(500);
+              expect(result).to.be.equal('Erro ao tentar atualizar parcialmente um workout');
+            }
+          };
+        }
+      } as unknown as Response;
+
+      await workoutController.patch(req, res);
+
+      expect(service.patch).to.have.been.calledOnce;
+      expect(service.patch).to.have.been.calledWith(1, mock.workoutPartialUpdateData.updates);
+    });
+
 
 
   });

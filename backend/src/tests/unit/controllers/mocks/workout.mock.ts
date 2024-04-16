@@ -63,11 +63,43 @@ const returnsNewWorkout = {
       }
     ]
   }
-}
+};
+
+const updateWorkout = {
+  updateData: {
+    weight: 60,
+    repetitions: 12,
+    sets: 4
+  },
+  workoutUpdated: {
+    id: 1,
+    weight: 60,
+    repetitions: 12,
+    sets: 4,
+    workoutsheet_id: 1
+  }
+};
+
+const workoutPartialUpdateData = {
+  updates: {
+    weight: 70
+  }
+};
+
+const workoutPartialUpdate =  {
+  id: 1,
+  weight: 70,
+  repetitions: 10,
+  sets: 3,
+  workoutsheet_id: 1
+};
 
 export default {
   allWorkouts,
   oneWorkout,
   newWorkout,
-  returnsNewWorkout
+  returnsNewWorkout,
+  updateWorkout,
+  workoutPartialUpdateData,
+  workoutPartialUpdate
 };

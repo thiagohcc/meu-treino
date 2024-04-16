@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 
 import Workoutsheet from "../models/Workoutsheet";
+import Workout from "../models/Workout";
+import Exercise from '../models/Exercise';
 
 @injectable()
 export default class workoutsheetService {
@@ -16,7 +18,7 @@ export default class workoutsheetService {
 
   public getById = async (id: number) => {
     try {
-      const workoutsheet = await Workoutsheet.findByPk(id);
+      const workoutsheet = await Workoutsheet.findByPk(id, { include: [{ all: true, nested: true }]});
 
       if(!workoutsheet) {
         return { type: 404, message: 'workoutsheet not found.' }
@@ -30,7 +32,24 @@ export default class workoutsheetService {
 
   public getByCustomerId = async (id: number) => {
     try {
-      const workoutsheets = await Workoutsheet.findAll({ where: { customer_id: id }});
+      const workoutsheets = await Workoutsheet.findAll(
+        {
+          where: { customer_id: id },
+          include: [
+            {
+              model: Workout,
+              as: 'workouts',
+              include:
+                [
+                  {
+                    model: Exercise,
+                    through: { attributes: []}
+                  }
+                ]
+              }
+            ]
+        }
+      );
 
       if (!workoutsheets) {
         return { type: 404, message: 'workoutsheet for customer_id not found.'}
@@ -53,7 +72,7 @@ export default class workoutsheetService {
 
   public put = async (id: number, workoutsheet: Workoutsheet) => {
     try {
-      const updatedWorkoutsheet = await Workoutsheet.findByPk(id);
+      const updatedWorkoutsheet = await Workoutsheet.findByPk(id, { include: [{ model: Workout, as: 'workouts', include: [{ model: Exercise, through: { attributes: [] }}] }] });
 
       if (!updatedWorkoutsheet) {
         return { type: 404, message: 'workoutsheet not found.' }

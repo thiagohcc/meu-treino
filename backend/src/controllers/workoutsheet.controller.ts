@@ -5,6 +5,7 @@ import WorkoutsheetService from '../services/workoutsheet.service';
 
 @injectable()
 export default class WorkoutsheetController {
+
   constructor(
     @inject('WorkoutsheetService') private workoutsheetService: WorkoutsheetService
   ) {};
@@ -73,7 +74,7 @@ export default class WorkoutsheetController {
   public patch = async (req: Request, res: Response) => {
     try {
       const id = parseInt(req.params.id);
-      const updatedWorkoutsheet = req.body;
+      const updatedWorkoutsheet = req.body.updates;
       const { type, message } = await this.workoutsheetService.patch(id, updatedWorkoutsheet);
       return res.status(type).json(message);
     } catch (err) {

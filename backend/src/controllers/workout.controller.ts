@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-
 import { Request, Response } from 'express';
 import WorkoutService from '../services/workout.service';
 import { inject, injectable } from 'tsyringe';
