@@ -8,7 +8,7 @@ import container from '../../../container/container.config';
 import WorkoutsheetController from '../../../controllers/workoutsheet.controller';
 import WorkoutsheetService from '../../..//services/workoutsheet.service';
 
-import mock from './mocks/workoutsheet.mock';
+import mock from '../mocks/workoutsheet.mock';
 
 chai.use(sinonChai);
 const expect = chai.expect;

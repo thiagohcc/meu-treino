@@ -1,6 +1,8 @@
 import Exercise from "../models/Exercise"
+import IExercise from "../interfaces/IExercise";
 
 import { injectable } from "tsyringe";
+import e = require("express");
 
 @injectable()
 export default class ExerciseService {
@@ -42,7 +44,7 @@ export default class ExerciseService {
     }
   };
 
-  public post = async (exercise: Exercise) => {
+  public post = async (exercise: IExercise) => {
     try {
       const newExercise = await Exercise.create(exercise);
 
@@ -52,7 +54,7 @@ export default class ExerciseService {
     }
   };
 
-  public put = async (id: number, exercise: Exercise) => {
+  public put = async (id: number, exercise: IExercise) => {
     try {
       const exerciseUpdate = await Exercise.findByPk(id);
 
@@ -60,9 +62,9 @@ export default class ExerciseService {
         return { type: 404, message: "Exercise not found." };
       }
 
-      await exerciseUpdate.update(exercise);
+      const exerciseUpdated = await Exercise.update(exercise, { where: { id } });
 
-      return { type: 200, message: exercise };
+      return { type: 200, message: exerciseUpdated };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }
@@ -76,11 +78,15 @@ export default class ExerciseService {
         return { type: 404, message: "Exercise not found." };
       }
 
-      await exercise.destroy();
+      await Exercise.destroy({ where: { id } });
 
       return { type: 200, message: "Exercise deleted." };
     } catch (err) {
-      return { type: 500, message: (err as Error).message };
+      if((err as Error).name === "SequelizeForeignKeyConstraintError") {
+        return { type: 400, message: "Cannot delete exercise due to a foreign key constraint." };
+      } else{
+        return { type: 500, message: (err as Error).message };
+      }
     }
   };
 
@@ -92,7 +98,7 @@ export default class ExerciseService {
         return { type: 404, message: "Exercise not found." };
       }
 
-      await exercise.update(updates);
+      await Exercise.update(updates, { where: { id } } );
 
       return { type: 200, message: exercise };
     } catch (err) {

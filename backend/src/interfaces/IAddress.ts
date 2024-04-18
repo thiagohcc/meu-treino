@@ -1,12 +1,12 @@
 interface IAddress {
-  id?: number;
   street: string;
   number: number;
   complement: string;
   neighborhood: string;
   city: string;
   state: string;
-  zip_code: number;
+  country: string,
+  zip_code: string;
 }
 
 export default IAddress;

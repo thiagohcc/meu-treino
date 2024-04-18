@@ -7,7 +7,7 @@ import AddressController from '../../../controllers/address.controller';
 import AddressService from '../../../services/address.service';
 import container from '../../../container/container.config';
 
-import mock from './mocks/address.mock';
+import mock from '../mocks/address.mock';
 
 chai.use(sinonChai);
 const expect = chai.expect;

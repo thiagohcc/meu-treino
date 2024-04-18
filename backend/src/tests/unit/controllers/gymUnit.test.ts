@@ -8,7 +8,7 @@ import container from '../../../container/container.config';
 import GymUnitController from '../../../controllers/gymUnit.controller';
 import GymUnitService from '../../../services/gymUnit.service';
 
-import mock from './mocks/gymUnit.mock';
+import mock from '../mocks/gymUnit.mock';
 
 chai.use(sinonChai);
 const expect = chai.expect;

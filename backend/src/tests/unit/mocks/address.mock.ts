@@ -1,3 +1,5 @@
+import Address from "../../../models/Address";
+
 const allAddresses = [
   {
     id: 1,
@@ -76,11 +78,14 @@ const dataToUpdateAddress = {
   }
 };
 
+const createdAddress = new Address(newAddress);
+
 export default {
   allAddresses,
   address,
   newAddress,
   addressToUpdate,
   addressUpdated,
-  dataToUpdateAddress
+  dataToUpdateAddress,
+  createdAddress
 };

@@ -37,6 +37,15 @@ const newExercise = {
   videoUrl: "url_do_video"
 };
 
+const exerciseOutdated = {
+  id: 33,
+  name: "Leg Press",
+  number: 333,
+  photoUrl: "url_da_foto",
+  videoUrl: "url_do_video"
+
+};
+
 const exerciseToUpdate = {
   name: "Leg Press Articulado",
   number: 33,
@@ -65,5 +74,6 @@ export default {
   newExercise,
   exerciseToUpdate,
   exerciseUpdated,
-  dataToUpdateExercise
+  dataToUpdateExercise,
+  exerciseOutdated
 };

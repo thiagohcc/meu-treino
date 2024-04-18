@@ -1,8 +1,10 @@
 import 'reflect-metadata';
 
 import Address from '../models/Address';
+import IAddress from '../interfaces/IAddress';
 
 import { injectable } from 'tsyringe';
+import { where } from 'sequelize';
 
 @injectable()
 export default class AddressService {
@@ -28,7 +30,7 @@ export default class AddressService {
     }
   };
 
-  public post = async (address: Address) => {
+  public post = async (address: IAddress) => {
     try {
       const newAddress = await Address.create(address);
       return { type: 201, message: newAddress };
@@ -37,7 +39,7 @@ export default class AddressService {
     }
   };
 
-  public put = async (id: number, address: Address) => {
+  public put = async (id: number, address: IAddress) => {
     try {
       const addressToUpdate = await Address.findByPk(id);
 
@@ -45,8 +47,9 @@ export default class AddressService {
         return { type: 404, message: 'Address not found.' };
       }
 
-      await addressToUpdate.update(address);
-      return { type: 200, message: addressToUpdate };
+      const addressUpdated = await Address.update(address, { where: { id } });
+      
+      return { type: 200, message: addressUpdated };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }
@@ -60,7 +63,7 @@ export default class AddressService {
         return { type: 404, message: 'Address not found.' };
       }
 
-      await address.destroy();
+      await Address.destroy({ where: { id } });
       return { type: 200, message: 'Address deleted.' };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
@@ -70,17 +73,11 @@ export default class AddressService {
   public patch = async (id: number, updates: Partial<Address>) => {
     try {
       const address = await Address.findByPk(id);
-      console.log(address);
-      
 
       if (!address) {
         return { type: 404, message: 'Address not found.' };
       }
-
-      await address.update(updates);
-
-      const addressUpdated = await Address.findByPk(id);
-      console.log(addressUpdated);
+      const addressUpdated = await Address.update(updates, { where: { id } });      
       
       return { type: 200, message: addressUpdated };
     } catch (err) {
