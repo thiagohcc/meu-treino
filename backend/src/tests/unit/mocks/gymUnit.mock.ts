@@ -175,7 +175,40 @@ const updatedGymUnit = {
   close_hour: "18:00:00"
 };
 
-const gymUnitSimpleUpdate = { phone: "666-um-tapa-na-orelha" }
+const updatedGymUnitComplete = {
+  id: 1,
+  name: "BodyTech",
+  phone: "666-um-tapa-na-orelha",
+  email: "contato@bodytech.com",
+  open_hour: "10:00:00",
+  close_hour: "18:00:00",
+  address_id: 13,
+  address: {
+    id: 13,
+    street: "Rua das Palmeiras",
+    number: 321,
+    complement: "Casa",
+    neighborhood: "Jardim das Flores",
+    city: "Cidade M",
+    state: "Estado M",
+    country: "País M",
+    zip_code: "98765-432"
+  },
+}
+
+const gymUnitSimpleUpdate = { phone: "666-um-tapa-na-orelha" };
+
+const address = {
+  id: 13,
+  street: "Rua das Palmeiras",
+  number: 321,
+  complement: "Casa",
+  neighborhood: "Jardim das Flores",
+  city: "Cidade M",
+  state: "Estado M",
+  country: "País M",
+  zip_code: "98765-432"
+};
 
 export default {
   allUnits,
@@ -184,5 +217,7 @@ export default {
   returnNewUnitSimple,
   gymUnitToUpdate,
   updatedGymUnit,
-  gymUnitSimpleUpdate
+  gymUnitSimpleUpdate,
+  address,
+  updatedGymUnitComplete
 };

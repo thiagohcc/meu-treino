@@ -1,8 +1,9 @@
 interface IWorkout {
   id?: number;
-  weigth: number;
+  weight: number;
   repetitions: number;
   sets: number;
+  workoutsheet_id?: number;
 };
 
 export default IWorkout;

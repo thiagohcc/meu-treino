@@ -1,7 +1,9 @@
 import 'reflect-metadata';
 
 import Customer from "../models/Customer";
+import INewCustomer from "../interfaces/ICustomer";
 import Address from "../models/Address";
+import IAddress from '../interfaces/IAddress';
 
 import { inject, injectable } from "tsyringe";
 
@@ -57,7 +59,7 @@ export default class CustomerService {
     }
   };
 
-  public post = async (customer: Customer, address?: Address) => {
+  public post = async (customer: INewCustomer, address?: IAddress) => {
     try {
       if (!address) {
         const newCustomer = await Customer.create(customer);
@@ -77,7 +79,7 @@ export default class CustomerService {
     }
   };
 
-  public put = async (id: number, customer: Customer) => {
+  public put = async (id: number, customer: INewCustomer) => {
     try {
       const customerToUpdate = await Customer.findByPk(id);
 
@@ -85,8 +87,8 @@ export default class CustomerService {
         return { type: 404, message: "Customer not found." };
       }
 
-      await customerToUpdate.update(customer);
-      return { type: 200, message: customerToUpdate };
+      const customerUpdated = await Customer.update(customer, { where: { id } });
+      return { type: 200, message: customerUpdated };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }
@@ -100,7 +102,7 @@ export default class CustomerService {
         return { type: 404, message: "Customer not found." };
       }
 
-      await customer.destroy();
+      await Customer.destroy({ where: { id } });
       return { type: 200, message: "Customer deleted." };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
@@ -115,8 +117,8 @@ export default class CustomerService {
         return { type: 404, message: "Customer not found." };
       }
 
-      await customer.update(updates);
-      return { type: 200, message: customer };
+      const customerUpdated = await Customer.update(updates, { where: { id } });
+      return { type: 200, message: customerUpdated };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
     }

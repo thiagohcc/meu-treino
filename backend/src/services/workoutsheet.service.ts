@@ -3,7 +3,9 @@ import { inject, injectable } from 'tsyringe';
 
 import Workoutsheet from "../models/Workoutsheet";
 import Workout from "../models/Workout";
+import IWorkoutsheet from '../interfaces/IWorkoutsheet';
 import Exercise from '../models/Exercise';
+import Customer from '../models/Customer';
 
 @injectable()
 export default class workoutsheetService {
@@ -32,6 +34,13 @@ export default class workoutsheetService {
 
   public getByCustomerId = async (id: number) => {
     try {
+
+      const userExists = await Customer.findOne({ where: { id } });
+
+      if (!userExists) {
+        return { type: 404, message: 'User not exists.' }
+      };
+
       const workoutsheets = await Workoutsheet.findAll(
         {
           where: { customer_id: id },
@@ -51,17 +60,13 @@ export default class workoutsheetService {
         }
       );
 
-      if (!workoutsheets) {
-        return { type: 404, message: 'workoutsheet for customer_id not found.'}
-      }
-
       return { type: 200, message: workoutsheets }
     } catch (err) {
       return { type: 500, message: (err as Error).message }
     }
   };
 
-  public post = async (workoutsheet: Workoutsheet) => {
+  public post = async (workoutsheet: IWorkoutsheet) => {
     try {
       const newWorkoutsheet = await Workoutsheet.create(workoutsheet);
       return { type: 201, message: newWorkoutsheet };
@@ -70,7 +75,7 @@ export default class workoutsheetService {
     }
   };
 
-  public put = async (id: number, workoutsheet: Workoutsheet) => {
+  public put = async (id: number, workoutsheet: IWorkoutsheet) => {
     try {
       const updatedWorkoutsheet = await Workoutsheet.findByPk(id, { include: [{ model: Workout, as: 'workouts', include: [{ model: Exercise, through: { attributes: [] }}] }] });
 
@@ -78,9 +83,9 @@ export default class workoutsheetService {
         return { type: 404, message: 'workoutsheet not found.' }
       }
 
-      await updatedWorkoutsheet.update(workoutsheet);
+      const workoutsheetUpdated = await Workoutsheet.update(workoutsheet, { where: { id } });
 
-      return { type: 200, message: updatedWorkoutsheet }
+      return { type: 200, message: workoutsheetUpdated }
     } catch (err) {
       return { type: 500, message: (err as Error).message }
     }
@@ -94,9 +99,9 @@ export default class workoutsheetService {
         return { type: 404, message: 'Workoutsheet not found.' };
       }
 
-      await workoutsheet.destroy();
+      await Workoutsheet.destroy({ where: { id } });
 
-      return { type: 200, message: 'Workout sheet deleted.' }
+      return { type: 200, message: 'Workoutsheet deleted.' }
     } catch (err) {
       return { type: 500, message: (err as Error).message }
     }
@@ -110,8 +115,8 @@ export default class workoutsheetService {
         return { type: 404, message: 'Workoutsheet not found' }
       }
 
-      await workoutsheet.update(updates);
-      return { type: 200, message: workoutsheet }
+      const workoutsheetUpdated = await Workoutsheet.update(updates, { where: { id } });
+      return { type: 200, message: workoutsheetUpdated }
     } catch (err) {
       return { type: 500, message: (err as Error).message }
     }

@@ -1,9 +1,9 @@
 interface IWorkoutsheet {
   id?: number;
-  customerId: number;
+  customer_id: number;
   title: string;
   description: string;
-  isActive: boolean;
+  is_active: boolean;
 };
 
 export default IWorkoutsheet;

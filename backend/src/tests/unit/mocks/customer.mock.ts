@@ -6,7 +6,7 @@ const allCustomers = [
     gender: 'masculino',
     phone: '1122334455',
     cpf: '12345678901',
-    is_active: true,
+    isActive: true,
     address_id: 1
   },
   {
@@ -16,7 +16,7 @@ const allCustomers = [
     gender: 'feminino',
     phone: '9988776655',
     cpf: '98765432101',
-    is_active: true,
+    isActive: true,
     address_id: 2
   }
 ];
@@ -37,7 +37,7 @@ const userById = {
       customer_id: 1,
       title: "Beginner Workout",
       description: "Basic workout routine for beginners",
-      is_active: true,
+      isActive: true,
       workouts: [
         {
           id: 1,
@@ -134,7 +134,7 @@ const userById = {
       customer_id: 1,
       title: "Intermediate Workout",
       description: "Workout routine for intermediate level",
-      is_active: true,
+      isActive: true,
       workouts: [
         {
           id: 5,
@@ -231,7 +231,7 @@ const userById = {
       customer_id: 1,
       title: "Advanced Workout",
       description: "Workout routine for advanced level",
-      is_active: true,
+      isActive: true,
       workouts: [
         {
           id: 9,
@@ -353,7 +353,7 @@ const userByCpf = {
       customer_id: 1,
       title: "Beginner Workout",
       description: "Basic workout routine for beginners",
-      is_active: true,
+      isActive: true,
       workouts: [
         {
           id: 1,
@@ -450,7 +450,7 @@ const userByCpf = {
       customer_id: 1,
       title: "Intermediate Workout",
       description: "Workout routine for intermediate level",
-      is_active: true,
+      isActive: true,
       workouts: [
         {
           id: 5,
@@ -547,7 +547,7 @@ const userByCpf = {
       customer_id: 1,
       title: "Advanced Workout",
       description: "Workout routine for advanced level",
-      is_active: true,
+      isActive: true,
       workouts: [
         {
           id: 9,
@@ -669,7 +669,7 @@ const userByEmail = {
       customer_id: 1,
       title: "Beginner Workout",
       description: "Basic workout routine for beginners",
-      is_active: true,
+      isActive: true,
       workouts: [
         {
           id: 1,
@@ -766,7 +766,7 @@ const userByEmail = {
       customer_id: 1,
       title: "Intermediate Workout",
       description: "Workout routine for intermediate level",
-      is_active: true,
+      isActive: true,
       workouts: [
         {
           id: 5,
@@ -863,7 +863,7 @@ const userByEmail = {
       customer_id: 1,
       title: "Advanced Workout",
       description: "Workout routine for advanced level",
-      is_active: true,
+      isActive: true,
       workouts: [
         {
           id: 9,
@@ -977,7 +977,7 @@ const newUserSimple = {
     gender: 'masculino',
     phone: '1122334455',
     cpf: '12345678901',
-    is_active: true
+    isActive: true,
   }
 };
 
@@ -989,7 +989,7 @@ const newUserSimpleCreated = {
   gender: 'masculino',
   phone: '1122334455',
   cpf: '12345678901',
-  is_active: true
+  isActive: true
 };
 
 const newUserWithAddress = {
@@ -1000,6 +1000,7 @@ const newUserWithAddress = {
     gender: 'masculino',
     phone: '1122334455',
     cpf: '12345678901',
+    isActive: true,
   },
   address: {
     street: 'Rua das Flores',
@@ -1021,7 +1022,7 @@ const newUserWithAddressCreated = {
   gender: 'masculino',
   phone: '1122334455',
   cpf: '12345678901',
-  is_active: true,
+  isActive: true,
   address_id: 1,
   address: {
     id: 1,
@@ -1043,7 +1044,7 @@ const customerToUpdate = {
   gender: 'masculino',
   phone: '1122334455',
   cpf: '12345678901',
-  is_active: true
+  isActive: true
 };
 
 const customerUpdated = {
@@ -1054,11 +1055,11 @@ const customerUpdated = {
   gender: 'masculino',
   phone: '1122334455',
   cpf: '12345678901',
-  is_active: true
+  isActive: true
 };
 
 const dataToUpdateCustomer = {
-  is_active: false,
+  isActive: false,
 };
 
 const CustomerUpdatedByData = {
@@ -1069,12 +1070,12 @@ const CustomerUpdatedByData = {
   gender: 'masculino',
   phone: '1122334455',
   cpf: '12345678901',
-  is_active: false
+  isActive: false
 }
 
 
 
-export {
+export default {
   allCustomers,
   userById,
   userByCpf,

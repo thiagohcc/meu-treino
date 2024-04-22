@@ -7,7 +7,7 @@ import CustomerController from '../../../controllers/customer.controller';
 import container from '../../../container/container.config';
 import CustomerService from '../../../services/customer.service';
 
-import * as mock from '../mocks/customer.mock';
+import mock from '../mocks/customer.mock';
 
 chai.use(sinonChai);
 const expect = chai.expect;

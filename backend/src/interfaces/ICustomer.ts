@@ -1,11 +1,11 @@
-export interface INewCostumer {
+export default interface INewCostumer {
     id?: number;
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     email: string;
     gender: string;
     phone: string;
-    cpf: number;
+    cpf: string;
     isActive: boolean;
-    
+    address_id?: number;
 };

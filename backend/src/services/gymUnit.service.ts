@@ -1,7 +1,9 @@
 import 'reflect-metadata';
 
 import GymUnit from "../models/GymUnit";
+import IGymUnit from '../interfaces/IGymUnit';
 import Address from '../models/Address';
+import IAddress from '../interfaces/IAddress';
 
 import { injectable } from "tsyringe";
 
@@ -29,7 +31,7 @@ export default class GymUnitService {
     }
   };
 
-  public post = async (gymUnit: GymUnit, address?: Address) => {
+  public post = async (gymUnit: IGymUnit, address?: IAddress) => {
     try {
       if (!address) {
         const newGymUnit = await GymUnit.create(gymUnit);
@@ -47,15 +49,15 @@ export default class GymUnitService {
     }
   };
 
-  public put = async (id: number, gymUnit: GymUnit) => {
+  public put = async (id: number, gymUnit: IGymUnit) => {
     try {
-      const gymUnitExists = await GymUnit.findByPk(id);
+      const gymUnitExists = await GymUnit.findOne({ where: { id } });
      
       if (!gymUnitExists) {
         return { type: 404, message: "Gym unit not found." };
       }
 
-      await gymUnitExists.update(gymUnit);
+      await GymUnit.update(gymUnit, { where: { id } } );
       const updatedGymUnit = await GymUnit.findByPk(id, { include: [{ all: true, nested: true }] });
 
       return { type: 200, message: updatedGymUnit };
@@ -81,14 +83,15 @@ export default class GymUnitService {
 
   public patch = async (id: number, updates: Partial<GymUnit>) => {
     try {
-      const gymUnit = await GymUnit.findByPk(id);
+      const gymUnit = await GymUnit.findOne({where: { id }});
 
       if (!gymUnit) {
         return { type: 404, message: "Gym unit not found." };
       }
 
-      await gymUnit.update(updates);
+      await GymUnit.update(updates, { where: { id } });
       const updatedGymUnit = await GymUnit.findByPk(id, { include: [{ all: true, nested: true }] });
+      
       return { type: 200, message: updatedGymUnit };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
