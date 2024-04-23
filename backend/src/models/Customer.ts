@@ -13,6 +13,8 @@ export default class Customer extends Model<InferAttributes<Customer>, InferCrea
   declare phone: string;
   declare cpf: string;
   declare isActive: boolean;
+  declare userName: string;
+  declare password: string;
 
   public address_id?: number;
 }
@@ -55,6 +57,15 @@ Customer.init({
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: true,
+  },
+  userName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   address_id: {
     type: DataTypes.INTEGER,
