@@ -121,6 +121,10 @@ describe('=== Customer_Service ===', () => {
     });
 
     it('é possível criar um cliente simples corretamente', async () => {
+      sinon.stub(Customer, 'findOne')
+        .onFirstCall().resolves(null)
+        .onSecondCall().resolves(null);
+
       sinon.stub(Customer, 'create').resolves(mock.newUserSimpleCreated);
 
       const response = await customerService.post(mock.newUserSimple.customer);
@@ -130,6 +134,10 @@ describe('=== Customer_Service ===', () => {
     });
 
     it('retorna uma mensagem de erro ao tentar criar um cliente simples e falha', async () => {
+      sinon.stub(Customer, 'findOne')
+      .onFirstCall().resolves(null)
+      .onSecondCall().resolves(null);
+      
       sinon.stub(Customer, 'create').throws(new Error('Erro ao criar cliente'));
 
       const response = await customerService.post(mock.newUserSimple.customer);
@@ -139,6 +147,10 @@ describe('=== Customer_Service ===', () => {
     });
 
     it('é possível criar um cliente completo corretamente', async () => {
+      sinon.stub(Customer, 'findOne')
+      .onFirstCall().resolves(null)
+      .onSecondCall().resolves(null);
+
       sinon.stub(Address, 'create').resolves(mock.newUserWithAddress.address);
       sinon.stub(Customer, 'create').resolves(mock.newUserWithAddressCreated);
       sinon.stub(Customer, 'findByPk').resolves(mock.newUserWithAddressCreated);
@@ -150,9 +162,14 @@ describe('=== Customer_Service ===', () => {
     });
 
     it('é possível editar um cliente corretamente', async () => {
+      sinon.stub(Customer, 'findOne')
+        .onFirstCall().resolves(null)
+        .onSecondCall().resolves(null)
+        .onThirdCall().resolves(mock.customerUpdated);
+
       sinon.stub(Customer, 'findByPk').resolves(mock.userById);
       sinon.stub(Customer, 'update').resolves();
-      sinon.stub(Customer, 'findOne').resolves(mock.customerUpdated);
+      // sinon.stub(Customer, 'findOne').resolves(mock.customerUpdated);
 
       const response = await customerService.put(1, mock.customerToUpdate);
 
@@ -161,6 +178,10 @@ describe('=== Customer_Service ===', () => {
     });
 
     it('retorna uma mensagem de erro ao tentar editar um cliente e falha', async () => {
+      sinon.stub(Customer, 'findOne')
+      .onFirstCall().resolves(null)
+      .onSecondCall().resolves(null);
+
       sinon.stub(Customer, 'findByPk').throws(new Error('Erro ao retornar cliente'));
 
       const response = await customerService.put(1, mock.customerToUpdate);
@@ -170,6 +191,10 @@ describe('=== Customer_Service ===', () => {
     });
 
     it('retorna uma mensagem de erro ao tentar editar um cliente que não existe', async () => {
+      sinon.stub(Customer, 'findOne')
+      .onFirstCall().resolves(null)
+      .onSecondCall().resolves(null);
+      
       sinon.stub(Customer, 'findByPk').resolves(null);
 
       const response = await customerService.put(1, mock.customerToUpdate);
@@ -207,9 +232,14 @@ describe('=== Customer_Service ===', () => {
     });
 
     it('é possível editar parcialmente um cliente corretamente', async () => {
+      sinon.stub(Customer, 'findOne')
+      .onFirstCall().resolves(null)
+      .onSecondCall().resolves(null)
+      .onThirdCall().resolves(mock.CustomerUpdatedByData);
+
       sinon.stub(Customer, 'findByPk').resolves(mock.userById);
       sinon.stub(Customer, 'update').resolves();
-      sinon.stub(Customer, 'findOne').resolves(mock.CustomerUpdatedByData);
+      // sinon.stub(Customer, 'findOne').resolves(mock.CustomerUpdatedByData);
 
       const response = await customerService.patch(1, mock.dataToUpdateCustomer);
 
@@ -218,6 +248,10 @@ describe('=== Customer_Service ===', () => {
     });
 
     it('retorna uma mensagem de erro ao tentar editar parcialmente um cliente e falha', async () => {
+      sinon.stub(Customer, 'findOne')
+      .onFirstCall().resolves(null)
+      .onSecondCall().resolves(null);
+
       sinon.stub(Customer, 'findByPk').resolves(mock.userById);
       sinon.stub(Customer, 'update').throws(new Error('Erro ao retornar cliente'));
 
@@ -228,6 +262,10 @@ describe('=== Customer_Service ===', () => {
     });
 
     it('retorna uma mensagem de erro ao tentar editar parcialmente um cliente que não existe', async () => {
+      sinon.stub(Customer, 'findOne')
+      .onFirstCall().resolves(null)
+      .onSecondCall().resolves(null);
+
       sinon.stub(Customer, 'findByPk').resolves(null);
 
       const response = await customerService.patch(1, mock.dataToUpdateCustomer);
