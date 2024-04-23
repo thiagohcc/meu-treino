@@ -19,7 +19,8 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       gender: {
         type: Sequelize.STRING,
@@ -31,7 +32,8 @@ module.exports = {
       },
       cpf: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       is_active: {
         type: Sequelize.BOOLEAN,

@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import { Op } from 'sequelize';
 
 import Customer from "../models/Customer";
 import INewCustomer from "../interfaces/ICustomer";
@@ -61,6 +62,18 @@ export default class CustomerService {
 
   public post = async (customer: INewCustomer, address?: IAddress) => {
     try {
+
+      const cpfExists = await Customer.findOne({ where: { cpf: customer.cpf } });
+      const emailExists = await Customer.findOne({ where: { email: customer.email } });
+
+      if (cpfExists) {
+        return { type: 409, message: "CPF already exists." };
+      }
+
+      if (emailExists) {
+        return { type: 409, message: "Email already exists." };
+      }
+
       if (!address) {
         const newCustomer = await Customer.create(customer);
         return { type: 201, message: newCustomer };
@@ -81,6 +94,17 @@ export default class CustomerService {
 
   public put = async (id: number, customer: INewCustomer) => {
     try {
+      const cpfExists = await Customer.findOne({ where: { cpf: customer.cpf, id: { [Op.not]: id } } });
+      const emailExists = await Customer.findOne({ where: { email: customer.email, id: { [Op.not]: id } } });
+
+      if (cpfExists) {
+        return { type: 409, message: "CPF already exists." };
+      }
+
+      if (emailExists) {
+        return { type: 409, message: "Email already exists." };
+      }
+      
       const customerToUpdate = await Customer.findByPk(id);
 
       if (!customerToUpdate) {
@@ -111,6 +135,16 @@ export default class CustomerService {
 
   public patch = async (id: number, updates: Partial<Customer>) => {
     try {
+      const cpfExists = await Customer.findOne({ where: { cpf: updates.cpf, id: { [Op.not]: id } } });
+      const emailExists = await Customer.findOne({ where: { email: updates.email, id: { [Op.not]: id } } });
+
+      if (cpfExists) {
+        return { type: 409, message: "CPF already exists." };
+      }
+
+      if (emailExists) {
+        return { type: 409, message: "Email already exists." };
+      }
       const customer = await Customer.findByPk(id, { include: [{ all: true, nested: true }] });
 
       if (!customer) {
