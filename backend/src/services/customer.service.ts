@@ -86,8 +86,8 @@ export default class CustomerService {
       if (!customerToUpdate) {
         return { type: 404, message: "Customer not found." };
       }
-
-      const customerUpdated = await Customer.update(customer, { where: { id } });
+      await Customer.update(customer, { where: { id } });
+      const customerUpdated = await Customer.findOne({ where: { id } });
       return { type: 200, message: customerUpdated };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
@@ -117,7 +117,9 @@ export default class CustomerService {
         return { type: 404, message: "Customer not found." };
       }
 
-      const customerUpdated = await Customer.update(updates, { where: { id } });
+      await Customer.update(updates, { where: { id } });
+      const customerUpdated = await Customer.findOne({ where: { id } });
+      
       return { type: 200, message: customerUpdated };
     } catch (err) {
       return { type: 500, message: (err as Error).message };
