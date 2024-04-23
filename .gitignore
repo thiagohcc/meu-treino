@@ -1,0 +1,37 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore built JavaScript files
+build/
+
+# Ignore environment-specific files
+.env
+
+# Ignore any local TypeScript compiler configurations
+/tsconfig.json
+
+# Ignore any local Sequelize configurations
+/config/config.json
+
+# Ignore any log files
+*.log
+
+# Ignore any npm debug logs
+npm-debug.log*
+
+# Ignore any yarn debug logs
+yarn-debug.log*
+
+# Ignore any yarn error logs
+yarn-error.log*
+
+# Ignore IDE-specific files
+.idea
+.vscode
+
+# Ignore any build cache directories
+/.cache
+
+coverage/
+
+.nyc_output/
