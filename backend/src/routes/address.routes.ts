@@ -6,6 +6,7 @@ import AddressController from "../controllers/address.controller";
 const addressRouter = Router();
 const addressController = container.resolve<AddressController>(AddressController);
 
+
 addressRouter.get("/", (req, res) => addressController.getAll(req, res));
 addressRouter.get("/:id", (req, res) => addressController.getById(req, res));
 addressRouter.post("/", (req, res) => addressController.post(req, res));

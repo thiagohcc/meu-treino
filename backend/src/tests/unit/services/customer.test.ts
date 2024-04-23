@@ -6,7 +6,6 @@ chai.use(sinonChai);
 const expect = chai.expect;
 
 import Customer from '../../../models/Customer';
-import INewCostumer from '../../../interfaces/ICustomer';
 import Address from '../../../models/Address';
 
 import CustomerService from '../../../services/customer.service';
@@ -152,7 +151,8 @@ describe('=== Customer_Service ===', () => {
 
     it('é possível editar um cliente corretamente', async () => {
       sinon.stub(Customer, 'findByPk').resolves(mock.userById);
-      sinon.stub(Customer, 'update').resolves(mock.customerUpdated);
+      sinon.stub(Customer, 'update').resolves();
+      sinon.stub(Customer, 'findOne').resolves(mock.customerUpdated);
 
       const response = await customerService.put(1, mock.customerToUpdate);
 
@@ -208,7 +208,8 @@ describe('=== Customer_Service ===', () => {
 
     it('é possível editar parcialmente um cliente corretamente', async () => {
       sinon.stub(Customer, 'findByPk').resolves(mock.userById);
-      sinon.stub(Customer, 'update').resolves(mock.CustomerUpdatedByData);
+      sinon.stub(Customer, 'update').resolves();
+      sinon.stub(Customer, 'findOne').resolves(mock.CustomerUpdatedByData);
 
       const response = await customerService.patch(1, mock.dataToUpdateCustomer);
 
