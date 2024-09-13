@@ -8,6 +8,7 @@ import workoutRouter from './routes/workout.routes';
 import addressRouter from './routes/address.routes';
 import gymUnitRouter from './routes/gymUnit.routes';
 import workoutsheet from './routes/workoutsheet.routes';
+import loginRouter from './routes/login.routes';
 
 class App {
   public app: express.Express;
@@ -36,6 +37,7 @@ class App {
     this.app.use('/address', addressRouter);
     this.app.use('/gymUnit', gymUnitRouter);
     this.app.use('/workoutsheet', workoutsheet);
+    this.app.use('/login', loginRouter);
 
   }
 

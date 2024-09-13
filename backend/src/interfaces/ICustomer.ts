@@ -7,5 +7,7 @@ export default interface INewCostumer {
     phone: string;
     cpf: string;
     isActive: boolean;
+    userName: string;
+    password: string;
     address_id?: number;
 };

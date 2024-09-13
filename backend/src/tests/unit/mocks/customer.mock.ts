@@ -7,7 +7,9 @@ const allCustomers = [
     phone: '1122334455',
     cpf: '12345678901',
     isActive: true,
-    address_id: 1
+    address_id: 1,
+    userName: 'joao.silva',
+    password: '123456'
   },
   {
     first_name: 'Maria',
@@ -17,7 +19,9 @@ const allCustomers = [
     phone: '9988776655',
     cpf: '98765432101',
     isActive: true,
-    address_id: 2
+    address_id: 2,
+    userName: 'maria.santos',
+    password: '123456'
   }
 ];
 
@@ -31,6 +35,8 @@ const userById = {
   cpf: "12345678901",
   isActive: true,
   address_id: 1,
+  userName: "joao.silva",
+  password: '123456',
   workoutsheets: [
     {
       id: 1,
@@ -347,6 +353,8 @@ const userByCpf = {
   cpf: "12345678901",
   isActive: true,
   address_id: 1,
+  userName: "joao.silva",
+  password: '123456',
   workoutsheets: [
     {
       id: 1,
@@ -663,6 +671,8 @@ const userByEmail = {
   cpf: "12345678901",
   isActive: true,
   address_id: 1,
+  userName: "joao.silva",
+  password: "123456",
   workoutsheets: [
     {
       id: 1,
@@ -978,6 +988,8 @@ const newUserSimple = {
     phone: '1122334455',
     cpf: '12345678901',
     isActive: true,
+    userName: 'joao.silva',
+    password: '123456'
   }
 };
 
@@ -989,7 +1001,9 @@ const newUserSimpleCreated = {
   gender: 'masculino',
   phone: '1122334455',
   cpf: '12345678901',
-  isActive: true
+  isActive: true,
+  userName: 'joao.silva',
+  password: '123456'
 };
 
 const newUserWithAddress = {
@@ -1001,6 +1015,8 @@ const newUserWithAddress = {
     phone: '1122334455',
     cpf: '12345678901',
     isActive: true,
+    userName: 'joao.silva',
+    password: '123456'
   },
   address: {
     street: 'Rua das Flores',
@@ -1024,6 +1040,8 @@ const newUserWithAddressCreated = {
   cpf: '12345678901',
   isActive: true,
   address_id: 1,
+  userName: 'joao.silva',
+  password: '123456',
   address: {
     id: 1,
     street: 'Rua das Flores',
@@ -1044,7 +1062,9 @@ const customerToUpdate = {
   gender: 'masculino',
   phone: '1122334455',
   cpf: '12345678901',
-  isActive: true
+  isActive: true,
+  userName: 'joao.silva',
+  password: '123456'
 };
 
 const customerUpdated = {
@@ -1055,7 +1075,9 @@ const customerUpdated = {
   gender: 'masculino',
   phone: '1122334455',
   cpf: '12345678901',
-  isActive: true
+  isActive: true,
+  userName: 'joao.silva',
+  password: '123456'
 };
 
 const dataToUpdateCustomer = {
@@ -1070,7 +1092,9 @@ const CustomerUpdatedByData = {
   gender: 'masculino',
   phone: '1122334455',
   cpf: '12345678901',
-  isActive: false
+  isActive: false,
+  userName: 'joao.silva',
+  password: '123456'
 }
 
 
