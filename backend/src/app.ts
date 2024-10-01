@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import * as express from 'express';
+import cors from 'cors';
 
 import exerciseRouter from './routes/exercise.routes';
 import customerRouter from './routes/customer.routes';
@@ -30,6 +31,7 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.use(cors());
 
     this.app.use('/exercise', exerciseRouter);
     this.app.use('/customer', customerRouter);
