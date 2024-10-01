@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { loginRequest, setToken } from '../services/LoginRequest';
 
 import logo from '../assets/logo.svg';
 
@@ -7,7 +8,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [showPaasword, setShowPassword] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === 'email') {
       setEmail(value);
@@ -24,10 +25,30 @@ const Login: React.FC = () => {
     setShowPassword(false);
   };
 
+  const makeLogin = async (event: FormEvent) => {
+    event.preventDefault();
+
+    try {
+      const token: string = await loginRequest('/login', { email, password });
+      setToken(token);
+      console.log(token);
+      localStorage.setItem('token', token);
+      window.location.href = '/';
+
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.error('An unknown error occurred');
+      }
+    };
+
+  }
+
   return (
     <div>
       <div className='logo'>
-        <img src={logo} alt="logo" className='logo' />
+        <img src={logo} alt="logo" className='logo' id='logo' />
       </div>
       <h1>Login</h1>
       <form data-testid="login-form">
@@ -62,7 +83,13 @@ const Login: React.FC = () => {
           type="button"
         > exibir senha </button>
 
-        <button id="login-submit" data-testid="login-submit">Login</button>
+        <button
+          id="login-submit"
+          data-testid="login-submit"
+          onClick={(event) => makeLogin(event)}
+        >
+          Login
+        </button>
       </form>
       <p>
         Don't have an account? <a data-testid="signup" href="/signup">Sign up</a>

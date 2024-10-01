@@ -32,4 +32,19 @@ describe("=== Test the Login Compnent ===", () => {
     expect(email.value).toBe(data.email);
     expect(password.value).toBe(data.password);
   });
+
+  it("should log in successfully when valid credentials are provided", async () => {
+    render(<Login />);
+
+    const emailInput = screen.getByTestId("login-email") as HTMLInputElement;
+    const passwordInput = screen.getByTestId("login-password") as HTMLInputElement;
+    const submitButton = screen.getByTestId("login-submit");
+
+    fireEvent.change(emailInput, { target: { value: "emailteste@teste.com" } });
+    fireEvent.change(passwordInput, { target: { value: "123456" } });
+    fireEvent.click(submitButton);
+
+    expect(window.location.pathname).toBe("/home");
+
+  });
 });
