@@ -19,7 +19,7 @@ services:
     container_name: backend-meu-treino
     working_dir: /app
     stdin_open: true
-    command: dev
+    command: start
     restart: always
     ports:
       - 3001:3001
@@ -40,19 +40,19 @@ services:
     networks:
       - meu_treino_api
 
-  # frontend:
-  #   build: ./frontend
-  #   container_name: frontend-meu-treino
-  #   tty: true
-  #   stdin_open: true
-  #   command: dev
-  #   image: frontend-meu-treino
-  #   restart: always
-  #   workdir: /app
-  #   volumes:
-  #     - ./frontend/src:/app/src
-  #   ports:
-  #     - 3000:3000
+  frontend:
+    build: ./frontend
+    container_name: frontend-meu-treino
+    tty: true
+    stdin_open: true
+    command: start
+    image: frontend-meu-treino
+    restart: always
+    working_dir: /frontend
+    volumes:
+      - ./frontend/src:/frontend/src
+    ports:
+      - 3000:3000
 
 networks:
   meu_treino_api:

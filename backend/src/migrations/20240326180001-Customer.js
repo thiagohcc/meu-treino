@@ -39,6 +39,15 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
+      user_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       address_id: {
         type: Sequelize.INTEGER,
         allowNull: true,

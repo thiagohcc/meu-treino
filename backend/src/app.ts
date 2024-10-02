@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import * as express from 'express';
+const cors = require('cors');
 
 import exerciseRouter from './routes/exercise.routes';
 import customerRouter from './routes/customer.routes';
@@ -8,6 +9,7 @@ import workoutRouter from './routes/workout.routes';
 import addressRouter from './routes/address.routes';
 import gymUnitRouter from './routes/gymUnit.routes';
 import workoutsheet from './routes/workoutsheet.routes';
+import loginRouter from './routes/login.routes';
 
 class App {
   public app: express.Express;
@@ -20,6 +22,8 @@ class App {
   }
 
   private config(): void {
+    this.app.use(cors());
+    
     const accessControl: express.RequestHandler = (req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
@@ -36,6 +40,7 @@ class App {
     this.app.use('/address', addressRouter);
     this.app.use('/gymUnit', gymUnitRouter);
     this.app.use('/workoutsheet', workoutsheet);
+    this.app.use('/login', loginRouter);
 
   }
 
