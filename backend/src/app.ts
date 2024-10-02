@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
 import * as express from 'express';
-import cors from 'cors';
+const cors = require('cors');
 
 import exerciseRouter from './routes/exercise.routes';
 import customerRouter from './routes/customer.routes';
@@ -22,6 +22,8 @@ class App {
   }
 
   private config(): void {
+    this.app.use(cors());
+    
     const accessControl: express.RequestHandler = (req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
@@ -31,7 +33,6 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.use(cors());
 
     this.app.use('/exercise', exerciseRouter);
     this.app.use('/customer', customerRouter);
