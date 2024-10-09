@@ -1,12 +1,17 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { loginRequest, setToken } from '../services/LoginRequest';
+import { useNavigate } from 'react-router-dom';
 
 import logo from '../assets/logo.svg';
+import { AxiosError } from 'axios';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPaasword, setShowPassword] = useState(false);
+  const [showPaasword, setShowPassword] = useState<boolean>(false);
+  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
+
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,15 +34,16 @@ const Login: React.FC = () => {
     event.preventDefault();
 
     try {
-      const token: string = await loginRequest('/login', { email, password });
+      const token = await loginRequest('/login/signin', { email, password });
       setToken(token);
-      console.log(token);
+      setLoggedIn(true);
       localStorage.setItem('token', token);
-      window.location.href = '/';
+      navigate('/');
 
     } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
+      setLoggedIn(false);
+      if (error instanceof AxiosError) {
+        console.error('ERROR 404: ', error.message);
       } else {
         console.error('An unknown error occurred');
       }
@@ -74,6 +80,10 @@ const Login: React.FC = () => {
             placeholder='Password'
           />
         </label>
+        <p
+          data-testid="wrong-login">
+            { loggedIn == false && 'Usuário ou senha incorretos.' }
+        </p>
         <button
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}

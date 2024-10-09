@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 
 interface ApiResponse<T> {
   token: T | PromiseLike<T>;
@@ -14,8 +14,8 @@ export const setToken = (token: string): void => {
 }
 
 export const loginRequest = async <T>(endpoint: string, body: unknown) => {
-  const response = await instance.post<ApiResponse<T>>(endpoint, body);
-  return response.data.token;
+    const response = await instance.post<ApiResponse<T>>(endpoint, body);
+    return response.data;
 };
 
 export default instance;

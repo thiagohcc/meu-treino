@@ -1,12 +1,19 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { expect, describe, it } from "vitest";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { expect, describe, it, vi } from "vitest";
 
+import { BrowserRouter } from "react-router-dom";
 import Login from "./Login";
+
+import * as loginRequest from "../services/LoginRequest";
 
 describe("=== Test the Login Compnent ===", () => {
 
   it("renders the login form", () => {
-    render(<Login />);
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
   
     expect(screen.getByTestId("login-form")).toBeInTheDocument();
     expect(screen.getByTestId("login-email")).toBeInTheDocument();
@@ -17,7 +24,11 @@ describe("=== Test the Login Compnent ===", () => {
   });
 
   it("states are being recorded correctly", () => {
-    render(<Login />);
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
     const data = {
       email: "dzno23@gmail.com",
       password: "password",
@@ -34,17 +45,76 @@ describe("=== Test the Login Compnent ===", () => {
   });
 
   it("should log in successfully when valid credentials are provided", async () => {
-    render(<Login />);
+    const mockLogin = vi.spyOn(loginRequest, "loginRequest").mockResolvedValue("token-jwt");
+
+    const loginData = {
+      email: 'emailteste@teste.com',
+      password: '123456',
+    }
+    
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
 
     const emailInput = screen.getByTestId("login-email") as HTMLInputElement;
     const passwordInput = screen.getByTestId("login-password") as HTMLInputElement;
     const submitButton = screen.getByTestId("login-submit");
 
-    fireEvent.change(emailInput, { target: { value: "emailteste@teste.com" } });
-    fireEvent.change(passwordInput, { target: { value: "123456" } });
+    fireEvent.change(emailInput, { target: { value: loginData.email } });
+    fireEvent.change(passwordInput, { target: { value: loginData.password } });
     fireEvent.click(submitButton);
 
-    expect(window.location.pathname).toBe("/home");
+    await waitFor(() => {
+      expect(mockLogin).toHaveBeenCalledOnce();
+      expect(mockLogin).toHaveBeenCalledWith('/login/signin', loginData);
+      expect(localStorage.getItem('token')).toBe('token-jwt');
+
+    });
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/');
+    });
+
+    mockLogin.mockRestore();
+    localStorage.clear();
+
+  });
+
+  it("should display an error message when invalid credentials are provided", async () => {
+    const mockLogin = vi
+      .spyOn(loginRequest, "loginRequest")
+      .mockRejectedValue(new Error("Customer not found."));
+
+    const loginData = {
+      email: 'emailteste@teste.com.brd',
+      password: '123456',
+    }
+
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
+
+    const emailInput = screen.getByTestId("login-email") as HTMLInputElement;
+    const passwordInput = screen.getByTestId("login-password") as HTMLInputElement;
+    const submitButton = screen.getByTestId("login-submit");
+
+    fireEvent.change(emailInput, { target: { value: loginData.email } });
+    fireEvent.change(passwordInput, { target: { value: loginData.password } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(mockLogin).toHaveBeenCalledOnce();
+      expect(mockLogin).toHaveBeenCalledWith('/login/signin', loginData);
+      expect(localStorage.getItem('token')).toBe(null);
+    });
+
+    const errorMessage = await screen.getByTestId("wrong-login");
+    expect(errorMessage).toBeInTheDocument();
+    expect(errorMessage.textContent).toBe("Usuário ou senha incorretos.");
 
   });
 });
