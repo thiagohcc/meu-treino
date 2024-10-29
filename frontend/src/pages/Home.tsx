@@ -27,7 +27,7 @@ const Home: React.FC = () => {
   return (
     <div id="home" data-testid="home">
       <div>
-        <img id='customer-photo' data-testid='customer-photo' src="https://via.placeholder.com/500x500" alt="customer" />
+        <img id='customer-photo' data-testid='customer-photo' src={"https://via.placeholder.com/500x500"} alt="customer" />
         <div>
           <h3 id='customer-name' data-testid='customer-name'>Customer Name</h3>
         </div>

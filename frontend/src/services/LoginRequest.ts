@@ -18,4 +18,9 @@ export const loginRequest = async <T>(endpoint: string, body: unknown) => {
     return response.data;
 };
 
+export const tokenDecoder = async (endpoint: string, token: string) => {
+  const response = await instance.post<ApiResponse<T>>(endpoint, token);
+  return response.data;
+};
+
 export default instance;
